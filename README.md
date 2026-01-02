@@ -1,6 +1,6 @@
 # Portfolio Andika - Flutter Web Project
 
-Website portfolio pribadi yang dibuat menggunakan Flutter framework.
+Website portfolio pribadi yang dibuat menggunakan Flutter framework dengan arsitektur yang bersih dan terstruktur.
 
 ## 🎨 Design Specifications
 
@@ -10,22 +10,66 @@ Website portfolio pribadi yang dibuat menggunakan Flutter framework.
 - **Font Family**: Jersey 10
 - **Logo Opacity**: 45% untuk "JUST_K"
 
-## 📁 Struktur Project
+## 🏗️ Project Architecture
+
+Project ini menggunakan **Clean Architecture** dengan pemisahan yang jelas antara UI, Business Logic, dan Data:
 
 ```
-portofolio_andika/
-├── assets/
-│   └── images/          # Folder untuk icon social media
-│       ├── instagram.png
-│       ├── gmail.png
-│       ├── youtube.png
-│       └── whatsapp.png
-├── fonts/
-│   └── Jersey10-Regular.ttf  # Font Jersey 10
-├── lib/
-│   └── main.dart        # Main file dengan Contact Page
-└── pubspec.yaml         # Dependencies dan assets configuration
+lib/
+├── 📱 main.dart                    # Entry point
+│
+├── ⚙️ config/                      # Configuration
+│   └── app_theme.dart             # Theme & text styles
+│
+├── 🎨 constants/                   # Constants
+│   ├── app_constants.dart         # App constants
+│   ├── app_colors.dart            # Color palette
+│   └── constants.dart             # Barrel export
+│
+├── 📦 models/                      # Data models
+│   ├── portfolio_item.dart
+│   ├── contact_info.dart
+│   └── models.dart
+│
+├── 🎮 controllers/                 # Business logic
+│   ├── portfolio_controller.dart
+│   ├── about_controller.dart
+│   ├── contact_controller.dart
+│   └── controllers.dart
+│
+├── 🔧 services/                    # Services
+│   ├── navigation_service.dart
+│   ├── portfolio_service.dart
+│   ├── contact_service.dart
+│   └── services.dart
+│
+├── 📄 screens/                     # UI screens
+│   ├── about_page.dart
+│   ├── contact_page.dart
+│   └── portfolio_page.dart
+│
+├── 🧩 widgets/                     # Reusable widgets
+│   ├── app_nav_bar.dart
+│   ├── nav_item.dart
+│   ├── social_media_icon.dart
+│   └── dashed_line_painter.dart
+│
+├── 🗺️ routes/                      # Navigation
+│   └── app_routes.dart
+│
+└── 🛠️ utils/                       # Utilities
+    ├── responsive_helper.dart
+    ├── animation_helper.dart
+    └── validators.dart
 ```
+
+### 📚 Documentation Files
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Penjelasan detail arsitektur
+- **[REFACTORING_GUIDE.md](REFACTORING_GUIDE.md)** - Panduan refactoring
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference guide
+- **[MIGRATION_CHECKLIST.md](MIGRATION_CHECKLIST.md)** - Migration checklist
+- **[SUMMARY.md](SUMMARY.md)** - Summary of changes
 
 ## 🚀 Setup Instructions
 
