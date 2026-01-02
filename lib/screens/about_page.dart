@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
-import 'portfolio_page.dart';
+import '../widgets/red_dashed_line_painter.dart';
 
 // ================= ABOUT PAGE =================
 class AboutPage extends StatelessWidget {
@@ -50,7 +50,10 @@ class AboutPage extends StatelessWidget {
                                 NavItem(
                                   text: 'HOME',
                                   isMobile: true,
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
@@ -60,20 +63,18 @@ class AboutPage extends StatelessWidget {
                                 NavItem(
                                   text: 'PORTOFOLIO',
                                   isMobile: true,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PortfolioPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/portfolio',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'CONTACT',
                                   isMobile: true,
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                               ],
                             ),
@@ -94,24 +95,25 @@ class AboutPage extends StatelessWidget {
                               children: [
                                 NavItem(
                                   text: 'HOME',
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                                 NavItem(text: 'ABOUT', onTap: () {}),
                                 NavItem(
                                   text: 'PORTOFOLIO',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PortfolioPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/portfolio',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'CONTACT',
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                               ],
                             ),
@@ -167,8 +169,11 @@ class AboutPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        // Red line
-        Container(height: 2, width: 200, color: const Color(0xFFFF0000)),
+        // Red dashed line
+        CustomPaint(
+          painter: RedDashedLinePainter(),
+          child: const SizedBox(height: 2, width: 200),
+        ),
         const SizedBox(height: 30),
 
         // Text content
@@ -190,7 +195,10 @@ class AboutPage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(height: 2, width: 150, color: const Color(0xFFFF0000)),
+            CustomPaint(
+              painter: RedDashedLinePainter(),
+              child: const SizedBox(height: 2, width: 150),
+            ),
             const SizedBox(height: 10),
             Text(
               '"MAKING REAL SOMETHING YOU IMAGINE"',
@@ -201,7 +209,10 @@ class AboutPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Container(height: 2, width: 150, color: const Color(0xFFFF0000)),
+            CustomPaint(
+              painter: RedDashedLinePainter(),
+              child: const SizedBox(height: 2, width: 150),
+            ),
           ],
         ),
         const SizedBox(height: 30),
@@ -313,85 +324,84 @@ class AboutPage extends StatelessWidget {
 
           // Text content overlay (di atas gambar blur kiri)
           Positioned(
-            left: 40,
-            top: 40,
-            bottom: 40,
-            width: MediaQuery.of(context).size.width * 0.4,
+            left: 80,
+            top: 60,
+            bottom: 60,
+            right: MediaQuery.of(context).size.width * 0.42,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Title
-                Text(
-                  'ABOUT',
-                  style: GoogleFonts.jersey10(
-                    color: Colors.white,
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                  ),
+                // Title section
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'ABOUT',
+                      style: GoogleFonts.jersey10(
+                        color: Colors.white,
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'JUST_K',
+                      style: GoogleFonts.jersey10(
+                        color: Colors.white,
+                        fontSize: 70,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Red dashed line
+                    CustomPaint(
+                      painter: RedDashedLinePainter(),
+                      child: const SizedBox(height: 2, width: 400),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  'JUST_K',
-                  style: GoogleFonts.jersey10(
-                    color: Colors.white,
-                    fontSize: 70,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                // Red line
-                Container(
-                  height: 2,
-                  width: 300,
-                  color: const Color(0xFFFF0000),
-                ),
-                const SizedBox(height: 30),
 
                 // Text content
                 Text(
                   "It's an honor to have you visit my portfolio.\n"
                   "Curious about what I've been creating\n"
                   "over the past years?\n"
-                  "On this website, you'll find a detailed\n"
+                  " On this website, you'll find a detailed\n"
                   "look at my creative process.",
                   style: GoogleFonts.jersey10(
                     color: Colors.white,
-                    fontSize: 24,
-                    height: 1.4,
+                    fontSize: 26,
+                    height: 1.5,
                   ),
                 ),
-                const SizedBox(height: 35),
 
                 // Quote with red lines
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 2,
-                      width: 300,
-                      color: const Color(0xFFFF0000),
+                    CustomPaint(
+                      painter: RedDashedLinePainter(),
+                      child: const SizedBox(height: 2, width: 400),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 15),
                     Text(
                       '"MAKING REAL SOMETHING YOU IMAGINE"',
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 2,
-                      width: 300,
-                      color: const Color(0xFFFF0000),
+                    const SizedBox(height: 15),
+                    CustomPaint(
+                      painter: RedDashedLinePainter(),
+                      child: const SizedBox(height: 2, width: 400),
                     ),
                   ],
                 ),
-                const SizedBox(height: 35),
 
-                // Roles
+                // Roles section
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -399,30 +409,29 @@ class AboutPage extends StatelessWidget {
                       'COSPLAYER |',
                       style: GoogleFonts.jersey10(
                         color: Colors.white.withOpacity(0.7),
-                        fontSize: 26,
+                        fontSize: 28,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 12),
                     Text(
                       'PHOTOSHOP MANIPULATOR DESIGNER |',
                       style: GoogleFonts.jersey10(
                         color: Colors.white.withOpacity(0.7),
-                        fontSize: 26,
+                        fontSize: 28,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 12),
                     Text(
                       '3D ANIMATOR |',
                       style: GoogleFonts.jersey10(
                         color: Colors.white.withOpacity(0.7),
-                        fontSize: 26,
+                        fontSize: 28,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 2,
-                      width: 300,
-                      color: const Color(0xFFFF0000),
+                    const SizedBox(height: 15),
+                    CustomPaint(
+                      painter: RedDashedLinePainter(),
+                      child: const SizedBox(height: 2, width: 400),
                     ),
                   ],
                 ),

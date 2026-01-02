@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
 import '../widgets/social_media_icon.dart';
-import 'about_page.dart';
-import 'portfolio_page.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -60,27 +58,18 @@ class ContactPage extends StatelessWidget {
                                 NavItem(
                                   text: 'ABOUT',
                                   isMobile: true,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const AboutPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/about',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'PORTOFOLIO',
                                   isMobile: true,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PortfolioPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/portfolio',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'CONTACT',
@@ -111,26 +100,17 @@ class ContactPage extends StatelessWidget {
                                 NavItem(text: 'HOME', onTap: () {}),
                                 NavItem(
                                   text: 'ABOUT',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const AboutPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/about',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'PORTOFOLIO',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PortfolioPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/portfolio',
+                                  ),
                                 ),
                                 NavItem(text: 'CONTACT', onTap: () {}),
                               ],

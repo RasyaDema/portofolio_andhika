@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
-import 'about_page.dart';
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({super.key});
@@ -76,19 +75,18 @@ class _PortfolioPageState extends State<PortfolioPage>
                                 NavItem(
                                   text: 'HOME',
                                   isMobile: true,
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
                                   isMobile: true,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const AboutPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/about',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'PORTOFOLIO',
@@ -98,7 +96,10 @@ class _PortfolioPageState extends State<PortfolioPage>
                                 NavItem(
                                   text: 'CONTACT',
                                   isMobile: true,
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                               ],
                             ),
@@ -119,23 +120,25 @@ class _PortfolioPageState extends State<PortfolioPage>
                               children: [
                                 NavItem(
                                   text: 'HOME',
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const AboutPage(),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/about',
+                                  ),
                                 ),
                                 NavItem(text: 'PORTOFOLIO', onTap: () {}),
                                 NavItem(
                                   text: 'CONTACT',
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/contact',
+                                  ),
                                 ),
                               ],
                             ),
