@@ -215,7 +215,7 @@ class AboutPage extends StatelessWidget {
               '"MAKING REAL SOMETHING YOU IMAGINE"',
               style: GoogleFonts.jersey10(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: 36,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -400,7 +400,7 @@ class AboutPage extends StatelessWidget {
                       '"MAKING REAL SOMETHING YOU IMAGINE"',
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: 24,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

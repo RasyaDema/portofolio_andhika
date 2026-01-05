@@ -506,6 +506,15 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMobileFooter(BuildContext context) {
     return Column(
       children: [
+        Text(
+          'JUST_K',
+          style: GoogleFonts.jersey10(
+            color: Colors.white.withOpacity(0.45),
+            fontSize: 35,
+            letterSpacing: 2,
+          ),
+        ),
+        const SizedBox(height: 15),
         Wrap(
           alignment: WrapAlignment.center,
           spacing: 8,
@@ -541,6 +550,14 @@ class _HomePageState extends State<HomePage> {
   Widget _buildDesktopFooter(BuildContext context) {
     return Row(
       children: [
+        Text(
+          'JUST_K',
+          style: GoogleFonts.jersey10(
+            color: Colors.white.withOpacity(0.45),
+            fontSize: 50,
+            letterSpacing: 2,
+          ),
+        ),
         const Spacer(),
         Row(
           children: [
