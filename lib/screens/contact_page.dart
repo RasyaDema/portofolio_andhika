@@ -184,13 +184,13 @@ class ContactPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SocialMediaIcon(
-                                  imagePath: 'images/instagram.png',
+                                  imagePath: 'assets/images/instagram.png',
                                   label: 'JUST_K513',
                                   isMobile: true,
                                 ),
                                 const SizedBox(width: 30),
                                 SocialMediaIcon(
-                                  imagePath: 'images/gmail.png',
+                                  imagePath: 'assets/images/gmail.png',
                                   label: '',
                                   isMobile: true,
                                 ),
@@ -201,13 +201,13 @@ class ContactPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SocialMediaIcon(
-                                  imagePath: 'images/youtube.png',
+                                  imagePath: 'assets/images/youtube.png',
                                   label: 'KEVIN ZONE',
                                   isMobile: true,
                                 ),
                                 const SizedBox(width: 30),
                                 SocialMediaIcon(
-                                  imagePath: 'images/whatsapp.png',
+                                  imagePath: 'assets/images/whatsapp.png',
                                   label: '',
                                   isMobile: true,
                                 ),
@@ -219,22 +219,22 @@ class ContactPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SocialMediaIcon(
-                              imagePath: 'images/instagram.png',
+                              imagePath: 'assets/images/instagram.png',
                               label: 'JUST_K513',
                             ),
                             const SizedBox(width: 60),
                             SocialMediaIcon(
-                              imagePath: 'images/gmail.png',
+                              imagePath: 'assets/images/gmail.png',
                               label: '',
                             ),
                             const SizedBox(width: 60),
                             SocialMediaIcon(
-                              imagePath: 'images/youtube.png',
+                              imagePath: 'assets/images/youtube.png',
                               label: 'KEVIN ZONE',
                             ),
                             const SizedBox(width: 60),
                             SocialMediaIcon(
-                              imagePath: 'images/whatsapp.png',
+                              imagePath: 'assets/images/whatsapp.png',
                               label: '',
                             ),
                           ],

@@ -229,8 +229,8 @@ class _PortfolioPageState extends State<PortfolioPage>
 
   Widget _buildScrollingImageWithTabs(bool isMobile) {
     final imagePath = selectedTab == 'COSPLAY'
-        ? 'images/cosplay.png'
-        : 'images/design.png';
+        ? 'assets/images/cosplay.png'
+        : 'assets/images/design.png';
 
     return Container(
       height: isMobile ? 400 : 700,
@@ -357,9 +357,9 @@ class _PortfolioPageState extends State<PortfolioPage>
 
   Widget _build3DAnimatorContent(bool isMobile) {
     final images = [
-      'images/animasi1.png',
-      'images/animasi2.png',
-      'images/animasi3.png',
+      'assets/images/animasi1.png',
+      'assets/images/animasi2.png',
+      'assets/images/animasi3.png',
     ];
 
     return Padding(

@@ -262,7 +262,7 @@ class AboutPage extends StatelessWidget {
         // Images
         ClipRect(
           child: Image.asset(
-            'images/about2.png',
+            'assets/images/about2.png',
             width: double.infinity,
             height: 400,
             fit: BoxFit.cover,
@@ -297,7 +297,7 @@ class AboutPage extends StatelessWidget {
                 child: ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
                   child: Image.asset(
-                    'images/about1.png',
+                    'assets/images/about1.png',
                     fit: BoxFit.cover,
                     height: double.infinity,
                     errorBuilder: (context, error, stackTrace) {
@@ -311,7 +311,7 @@ class AboutPage extends StatelessWidget {
                 flex: 2,
                 child: ClipRect(
                   child: Image.asset(
-                    'images/about2.png',
+                    'assets/images/about2.png',
                     fit: BoxFit.cover,
                     height: double.infinity,
                     alignment: Alignment.topCenter,
