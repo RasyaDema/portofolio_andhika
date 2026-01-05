@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
                     BlendMode.darken,
                   ),
                 ),
@@ -268,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
                     BlendMode.darken,
                   ),
                 ),
@@ -362,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
                     BlendMode.darken,
                   ),
                 ),
