@@ -5,12 +5,14 @@ class NavItem extends StatelessWidget {
   final String text;
   final bool isMobile;
   final VoidCallback onTap;
+  final bool isActive;
 
   const NavItem({
     super.key,
     required this.text,
     this.isMobile = false,
     required this.onTap,
+    this.isActive = false,
   });
 
   @override
@@ -19,13 +21,36 @@ class NavItem extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 14),
-        child: Text(
-          '| $text',
-          style: GoogleFonts.jersey10(
-            color: Colors.white,
-            fontSize: isMobile ? 22 : 40,
-            letterSpacing: 1.5,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '| ',
+              style: GoogleFonts.jersey10(
+                color: Colors.white,
+                fontSize: isMobile ? 22 : 40,
+                letterSpacing: 1.5,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 8 : 12,
+                vertical: isMobile ? 4 : 6,
+              ),
+              decoration: BoxDecoration(
+                color: isActive ? const Color(0xFFFF0000) : Colors.transparent,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text(
+                text,
+                style: GoogleFonts.jersey10(
+                  color: Colors.white,
+                  fontSize: isMobile ? 22 : 40,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

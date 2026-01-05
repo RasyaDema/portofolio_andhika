@@ -1,0 +1,578 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../widgets/nav_item.dart';
+import '../widgets/dashed_line_painter.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int? _hoveredSection; // null, 2, 3, or 4
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // ================= SECTION 1: NAVBAR + WELCOME + SERVICES =================
+            _buildSection1(context, isMobile),
+
+            // ================= SECTION 2: MANIPULATION DESIGN =================
+            _buildSection2(context, isMobile),
+
+            // ================= SECTION 3: COSPLAY PARTS COMMISIONS =================
+            _buildSection3(context, isMobile),
+
+            // ================= SECTION 4: COMMERCIAL WORK =================
+            _buildSection4(context, isMobile),
+
+            // ================= SECTION 5: MORE COMING SOON + FOOTER =================
+            _buildSection5(context, isMobile),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Section 1: Navbar + Welcome + Services (HomeBG1.png with blur)
+  Widget _buildSection1(BuildContext context, bool isMobile) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/HomeBG1.png'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0.5),
+            BlendMode.darken,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: isMobile ? 20 : 30),
+
+          // Red dashed line above navbar
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          SizedBox(height: isMobile ? 15 : 20),
+
+          // Navbar
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
+            child: isMobile
+                ? _buildMobileNavbar(context)
+                : _buildDesktopNavbar(context),
+          ),
+
+          SizedBox(height: isMobile ? 15 : 20),
+
+          // Red dashed line below navbar
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          SizedBox(height: isMobile ? 60 : 100),
+
+          // Welcome Text
+          Text(
+            'WELCOME TO',
+            style: GoogleFonts.jersey10(
+              color: Colors.white,
+              fontSize: isMobile ? 24 : 32,
+              letterSpacing: 2,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // Main Title
+          Text(
+            'JUST_K',
+            style: GoogleFonts.jersey10(
+              color: Colors.white,
+              fontSize: isMobile ? 60 : 120,
+              letterSpacing: 3,
+            ),
+          ),
+
+          SizedBox(height: isMobile ? 80 : 120),
+
+          // Red dashed line before services
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          SizedBox(height: isMobile ? 40 : 60),
+
+          // Services Text
+          Text(
+            'WHAT SERVICES THAT I DO?',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.jersey10(
+              color: Colors.white,
+              fontSize: isMobile ? 32 : 48,
+              letterSpacing: 2,
+            ),
+          ),
+
+          SizedBox(height: isMobile ? 40 : 60),
+        ],
+      ),
+    );
+  }
+
+  // Section 2: Manipulation Design (Home2.png cropped)
+  Widget _buildSection2(BuildContext context, bool isMobile) {
+    final isHovered = _hoveredSection == 2;
+    final isOtherHovered = _hoveredSection != null && _hoveredSection != 2;
+
+    return Column(
+      children: [
+        // Red dashed line
+        CustomPaint(
+          painter: DashedLinePainter(),
+          child: const SizedBox(height: 1, width: double.infinity),
+        ),
+
+        MouseRegion(
+          onEnter: (_) => setState(() => _hoveredSection = 2),
+          onExit: (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: isMobile ? 150 : (isHovered ? 350 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home2.png'),
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'MANIPULATION DESIGN',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 36 : 56,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'A Design that make something Realistic\nas you imagine',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Section 3: Cosplay Parts Commisions (Home3.png cropped)
+  Widget _buildSection3(BuildContext context, bool isMobile) {
+    final isHovered = _hoveredSection == 3;
+    final isOtherHovered = _hoveredSection != null && _hoveredSection != 3;
+
+    return Column(
+      children: [
+        // Red dashed line
+        CustomPaint(
+          painter: DashedLinePainter(),
+          child: const SizedBox(height: 1, width: double.infinity),
+        ),
+
+        MouseRegion(
+          onEnter: (_) => setState(() => _hoveredSection = 3),
+          onExit: (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: isMobile ? 150 : (isHovered ? 350 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home3.png'),
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'COSPLAY PARTS COMMISIONS',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 32 : 52,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'Create a cosplay parts for your\ncharacter that wishes to cosplay as',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Section 4: Commercial Work (Home4.png scaled)
+  Widget _buildSection4(BuildContext context, bool isMobile) {
+    final isHovered = _hoveredSection == 4;
+    final isOtherHovered = _hoveredSection != null && _hoveredSection != 4;
+
+    return Column(
+      children: [
+        // Red dashed line
+        CustomPaint(
+          painter: DashedLinePainter(),
+          child: const SizedBox(height: 1, width: double.infinity),
+        ),
+
+        MouseRegion(
+          onEnter: (_) => setState(() => _hoveredSection = 4),
+          onExit: (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: isMobile ? 150 : (isHovered ? 350 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home4.png'),
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.7 : 0.3),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'COMMERCIAL WORK',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 36 : 56,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'Need a design for your branding?\ni can help you with 2d and 3d',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Section 5: More Coming Soon + Footer (Black background)
+  Widget _buildSection5(BuildContext context, bool isMobile) {
+    return Container(
+      color: Colors.black,
+      child: Column(
+        children: [
+          // Red dashed line
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          SizedBox(height: isMobile ? 80 : 120),
+
+          // More Coming Soon Text
+          Text(
+            'More coming soon',
+            style: GoogleFonts.jersey10(
+              color: Colors.white,
+              fontSize: isMobile ? 32 : 48,
+              letterSpacing: 2,
+            ),
+          ),
+
+          SizedBox(height: isMobile ? 80 : 120),
+
+          // Red dashed line before footer
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          SizedBox(height: isMobile ? 40 : 60),
+
+          // Footer
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
+            child: isMobile
+                ? _buildMobileFooter(context)
+                : _buildDesktopFooter(context),
+          ),
+
+          SizedBox(height: isMobile ? 40 : 60),
+
+          // Red dashed line at bottom
+          CustomPaint(
+            painter: DashedLinePainter(),
+            child: const SizedBox(height: 1, width: double.infinity),
+          ),
+
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  // Mobile Navbar
+  Widget _buildMobileNavbar(BuildContext context) {
+    return Column(
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
+            NavItem(
+              text: 'ABOUT',
+              isMobile: true,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+            ),
+            NavItem(
+              text: 'PORTOFOLIO',
+              isMobile: true,
+              isActive: false,
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, '/portfolio'),
+            ),
+            NavItem(
+              text: 'CONTACT',
+              isMobile: true,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Desktop Navbar
+  Widget _buildDesktopNavbar(BuildContext context) {
+    return Row(
+      children: [
+        const Spacer(),
+        Row(
+          children: [
+            NavItem(
+              text: 'HOME',
+              isMobile: false,
+              isActive: true,
+              onTap: () {},
+            ),
+            NavItem(
+              text: 'ABOUT',
+              isMobile: false,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+            ),
+            NavItem(
+              text: 'PORTOFOLIO',
+              isMobile: false,
+              isActive: false,
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, '/portfolio'),
+            ),
+            NavItem(
+              text: 'CONTACT',
+              isMobile: false,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
+            ),
+          ],
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+
+  // Mobile Footer
+  Widget _buildMobileFooter(BuildContext context) {
+    return Column(
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
+            NavItem(
+              text: 'ABOUT',
+              isMobile: true,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+            ),
+            NavItem(
+              text: 'PORTOFOLIO',
+              isMobile: true,
+              isActive: false,
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, '/portfolio'),
+            ),
+            NavItem(
+              text: 'CONTACT',
+              isMobile: true,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Desktop Footer
+  Widget _buildDesktopFooter(BuildContext context) {
+    return Row(
+      children: [
+        const Spacer(),
+        Row(
+          children: [
+            NavItem(
+              text: 'HOME',
+              isMobile: false,
+              isActive: true,
+              onTap: () {},
+            ),
+            NavItem(
+              text: 'ABOUT',
+              isMobile: false,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+            ),
+            NavItem(
+              text: 'PORTOFOLIO',
+              isMobile: false,
+              isActive: false,
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, '/portfolio'),
+            ),
+            NavItem(
+              text: 'CONTACT',
+              isMobile: false,
+              isActive: false,
+              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
+            ),
+          ],
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+}

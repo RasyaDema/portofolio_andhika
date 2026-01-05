@@ -75,14 +75,16 @@ class _PortfolioPageState extends State<PortfolioPage>
                                 NavItem(
                                   text: 'HOME',
                                   isMobile: true,
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
-                                    '/contact',
+                                    '/',
                                   ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
                                   isMobile: true,
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/about',
@@ -91,11 +93,13 @@ class _PortfolioPageState extends State<PortfolioPage>
                                 NavItem(
                                   text: 'PORTOFOLIO',
                                   isMobile: true,
+                                  isActive: true,
                                   onTap: () {},
                                 ),
                                 NavItem(
                                   text: 'CONTACT',
                                   isMobile: true,
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/contact',
@@ -120,21 +124,28 @@ class _PortfolioPageState extends State<PortfolioPage>
                               children: [
                                 NavItem(
                                   text: 'HOME',
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
-                                    '/contact',
+                                    '/',
                                   ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/about',
                                   ),
                                 ),
-                                NavItem(text: 'PORTOFOLIO', onTap: () {}),
+                                NavItem(
+                                  text: 'PORTOFOLIO',
+                                  isActive: true,
+                                  onTap: () {},
+                                ),
                                 NavItem(
                                   text: 'CONTACT',
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/contact',

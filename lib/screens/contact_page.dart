@@ -53,11 +53,16 @@ class ContactPage extends StatelessWidget {
                                 NavItem(
                                   text: 'HOME',
                                   isMobile: true,
-                                  onTap: () {},
+                                  isActive: false,
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/',
+                                  ),
                                 ),
                                 NavItem(
                                   text: 'ABOUT',
                                   isMobile: true,
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/about',
@@ -66,6 +71,7 @@ class ContactPage extends StatelessWidget {
                                 NavItem(
                                   text: 'PORTOFOLIO',
                                   isMobile: true,
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/portfolio',
@@ -74,6 +80,7 @@ class ContactPage extends StatelessWidget {
                                 NavItem(
                                   text: 'CONTACT',
                                   isMobile: true,
+                                  isActive: true,
                                   onTap: () {},
                                 ),
                               ],
@@ -97,9 +104,17 @@ class ContactPage extends StatelessWidget {
                             // Menu untuk desktop
                             Row(
                               children: [
-                                NavItem(text: 'HOME', onTap: () {}),
+                                NavItem(
+                                  text: 'HOME',
+                                  isActive: false,
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    '/',
+                                  ),
+                                ),
                                 NavItem(
                                   text: 'ABOUT',
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/about',
@@ -107,12 +122,17 @@ class ContactPage extends StatelessWidget {
                                 ),
                                 NavItem(
                                   text: 'PORTOFOLIO',
+                                  isActive: false,
                                   onTap: () => Navigator.pushReplacementNamed(
                                     context,
                                     '/portfolio',
                                   ),
                                 ),
-                                NavItem(text: 'CONTACT', onTap: () {}),
+                                NavItem(
+                                  text: 'CONTACT',
+                                  isActive: true,
+                                  onTap: () {},
+                                ),
                               ],
                             ),
 
