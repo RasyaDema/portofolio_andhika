@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
 
@@ -56,81 +57,84 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      child: Column(
-        children: [
-          SizedBox(height: isMobile ? 20 : 30),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Column(
+          children: [
+            SizedBox(height: isMobile ? 20 : 30),
 
-          // Red dashed line above navbar
-          CustomPaint(
-            painter: DashedLinePainter(),
-            child: const SizedBox(height: 1, width: double.infinity),
-          ),
-
-          SizedBox(height: isMobile ? 15 : 20),
-
-          // Navbar
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
-            child: isMobile
-                ? _buildMobileNavbar(context)
-                : _buildDesktopNavbar(context),
-          ),
-
-          SizedBox(height: isMobile ? 15 : 20),
-
-          // Red dashed line below navbar
-          CustomPaint(
-            painter: DashedLinePainter(),
-            child: const SizedBox(height: 1, width: double.infinity),
-          ),
-
-          SizedBox(height: isMobile ? 60 : 100),
-
-          // Welcome Text
-          Text(
-            'WELCOME TO',
-            style: GoogleFonts.jersey10(
-              color: Colors.white,
-              fontSize: isMobile ? 24 : 32,
-              letterSpacing: 2,
+            // Red dashed line above navbar
+            CustomPaint(
+              painter: DashedLinePainter(),
+              child: const SizedBox(height: 1, width: double.infinity),
             ),
-          ),
 
-          const SizedBox(height: 10),
+            SizedBox(height: isMobile ? 15 : 20),
 
-          // Main Title
-          Text(
-            'JUST_K',
-            style: GoogleFonts.jersey10(
-              color: Colors.white,
-              fontSize: isMobile ? 60 : 120,
-              letterSpacing: 3,
+            // Navbar
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
+              child: isMobile
+                  ? _buildMobileNavbar(context)
+                  : _buildDesktopNavbar(context),
             ),
-          ),
 
-          SizedBox(height: isMobile ? 80 : 120),
+            SizedBox(height: isMobile ? 15 : 20),
 
-          // Red dashed line before services
-          CustomPaint(
-            painter: DashedLinePainter(),
-            child: const SizedBox(height: 1, width: double.infinity),
-          ),
-
-          SizedBox(height: isMobile ? 40 : 60),
-
-          // Services Text
-          Text(
-            'WHAT SERVICES THAT I DO?',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.jersey10(
-              color: Colors.white,
-              fontSize: isMobile ? 32 : 48,
-              letterSpacing: 2,
+            // Red dashed line below navbar
+            CustomPaint(
+              painter: DashedLinePainter(),
+              child: const SizedBox(height: 1, width: double.infinity),
             ),
-          ),
 
-          SizedBox(height: isMobile ? 40 : 60),
-        ],
+            SizedBox(height: isMobile ? 60 : 100),
+
+            // Welcome Text
+            Text(
+              'WELCOME TO',
+              style: GoogleFonts.jersey10(
+                color: Colors.white,
+                fontSize: isMobile ? 24 : 32,
+                letterSpacing: 2,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            // Main Title
+            Text(
+              'JUST_K',
+              style: GoogleFonts.jersey10(
+                color: Colors.white,
+                fontSize: isMobile ? 60 : 120,
+                letterSpacing: 3,
+              ),
+            ),
+
+            SizedBox(height: isMobile ? 80 : 120),
+
+            // Red dashed line before services
+            CustomPaint(
+              painter: DashedLinePainter(),
+              child: const SizedBox(height: 1, width: double.infinity),
+            ),
+
+            SizedBox(height: isMobile ? 40 : 60),
+
+            // Services Text
+            Text(
+              'WHAT SERVICES THAT I DO?',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.jersey10(
+                color: Colors.white,
+                fontSize: isMobile ? 32 : 48,
+                letterSpacing: 2,
+              ),
+            ),
+
+            SizedBox(height: isMobile ? 40 : 60),
+          ],
+        ),
       ),
     );
   }
