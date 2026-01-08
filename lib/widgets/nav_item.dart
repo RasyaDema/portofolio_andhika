@@ -20,7 +20,7 @@ class NavItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 14),
+        padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 6),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
