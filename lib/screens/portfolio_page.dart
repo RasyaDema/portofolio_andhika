@@ -22,7 +22,7 @@ class _PortfolioPageState extends State<PortfolioPage>
     super.initState();
     _scrollController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 35),
     )..repeat();
   }
 
@@ -239,77 +239,51 @@ class _PortfolioPageState extends State<PortfolioPage>
         children: [
           // Background image dengan seamless scrolling
           Positioned.fill(
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  selectedImageIndex = selectedImageIndex == 0 ? null : 0;
-                });
-              },
-              child: AnimatedBuilder(
-                animation: _scrollController,
-                builder: (context, child) {
-                  final screenWidth = MediaQuery.of(context).size.width;
-                  final imageWidth = screenWidth * 1.5;
-                  final offset = _scrollController.value * imageWidth;
+            child: AnimatedBuilder(
+              animation: _scrollController,
+              builder: (context, child) {
+                final screenWidth = MediaQuery.of(context).size.width;
+                final imageWidth = screenWidth * 1.5;
+                final offset = _scrollController.value * imageWidth;
 
-                  return ClipRect(
-                    child: OverflowBox(
-                      maxWidth: double.infinity,
-                      child: Transform.translate(
-                        offset: Offset(-offset, 0),
-                        child: Row(
-                          children: List.generate(3, (index) {
-                            return SizedBox(
-                              width: imageWidth,
-                              child: selectedImageIndex == 0
-                                  ? Image.asset(
-                                      imagePath,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                            return Container(
-                                              color: Colors.grey[900],
-                                              child: const Center(
-                                                child: Icon(
-                                                  Icons.image,
-                                                  color: Colors.white,
-                                                  size: 80,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                    )
-                                  : ImageFiltered(
-                                      imageFilter: ImageFilter.blur(
-                                        sigmaX: 10,
-                                        sigmaY: 10,
-                                      ),
-                                      child: Image.asset(
-                                        imagePath,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                              return Container(
-                                                color: Colors.grey[900],
-                                                child: const Center(
-                                                  child: Icon(
-                                                    Icons.image,
-                                                    color: Colors.white,
-                                                    size: 80,
-                                                  ),
-                                                ),
-                                              );
-                                            },
+                return ClipRect(
+                  child: OverflowBox(
+                    maxWidth: double.infinity,
+                    child: Transform.translate(
+                      offset: Offset(-offset, 0),
+                      child: Row(
+                        children: List.generate(3, (index) {
+                          return SizedBox(
+                            width: imageWidth,
+                            child: ImageFiltered(
+                              imageFilter: ImageFilter.blur(
+                                sigmaX: 10,
+                                sigmaY: 10,
+                              ),
+                              child: Image.asset(
+                                imagePath,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[900],
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.image,
+                                        color: Colors.white,
+                                        size: 80,
                                       ),
                                     ),
-                            );
-                          }),
-                        ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
 
@@ -386,41 +360,23 @@ class _PortfolioPageState extends State<PortfolioPage>
   }
 
   Widget _build3DImage(int index, String imagePath, bool isMobile) {
-    final isSelected = selectedImageIndex == index;
-    return InkWell(
-      onTap: () {
-        setState(() {
-          selectedImageIndex = index;
-        });
-      },
-      child: Container(
-        width: isMobile ? double.infinity : 300,
-        height: isMobile ? 200 : 250,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[800],
-                    child: const Center(
-                      child: Icon(Icons.image, color: Colors.white, size: 60),
-                    ),
-                  );
-                },
+    return Container(
+      width: isMobile ? double.infinity : 300,
+      height: isMobile ? 200 : 250,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: Colors.grey[800],
+              child: const Center(
+                child: Icon(Icons.image, color: Colors.white, size: 60),
               ),
-              if (!isSelected)
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(color: Colors.black.withOpacity(0.1)),
-                ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
