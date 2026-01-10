@@ -1,5 +1,7 @@
 {
-  "buildCommand": null,
-  "outputDirectory": "public",
-  "installCommand": null
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "buildCommand": "bash build.sh",
+  "outputDirectory": "build/web"
 }
