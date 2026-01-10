@@ -601,29 +601,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         const SizedBox(height: 20),
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildSocialIcon('assets/images/instagram.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/gmail.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/youtube.png'),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildSocialIcon('assets/images/whatsapp.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/facebook.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/Twitter.png'),
-              ],
-            ),
+            _buildSocialIcon('assets/images/instagram.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/facebook.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/youtube.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/Twitter.png'),
           ],
         ),
       ],
@@ -673,28 +660,15 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         const Spacer(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        Row(
           children: [
-            Row(
-              children: [
-                _buildSocialIcon('assets/images/instagram.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/gmail.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/youtube.png'),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                _buildSocialIcon('assets/images/whatsapp.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/facebook.png'),
-                const SizedBox(width: 15),
-                _buildSocialIcon('assets/images/Twitter.png'),
-              ],
-            ),
+            _buildSocialIcon('assets/images/instagram.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/facebook.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/youtube.png'),
+            const SizedBox(width: 15),
+            _buildSocialIcon('assets/images/Twitter.png'),
           ],
         ),
       ],
