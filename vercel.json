@@ -1,11 +1,8 @@
 {
-  "buildCommand": "bash build.sh",
-  "outputDirectory": "build/web",
-  "installCommand": "echo 'Installing dependencies...' && flutter pub get || echo 'Flutter not yet available'",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/$1"
     }
   ]
 }
