@@ -1,0 +1,6 @@
+{
+  "buildCommand": "flutter build web --release",
+  "outputDirectory": "build/web",
+  "framework": null,
+  "installCommand": "if ! command -v flutter &> /dev/null; then git clone https://github.com/flutter/flutter.git && export PATH=\"$PATH:`pwd`/flutter/bin\"; fi && flutter doctor && flutter pub get"
+}
