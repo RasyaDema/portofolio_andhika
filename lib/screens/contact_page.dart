@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
-import '../widgets/social_media_icon.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -159,92 +158,155 @@ class ContactPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Text Info
+                  // Header Text
                   Text(
-                    'FOR YOUR MORE INFO.\n'
-                    'YOU CAN GO AHEAD CONTACT ME\n'
-                    'OR CHECK MY SOCIAL MEDIA BY\n'
-                    'CLICKING DOWN BELOW!',
+                    'Feel free to contact me for any sort of\nproduction inquires.',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.jersey10(
                       color: Colors.white,
-                      fontSize: isMobile ? 24 : 45,
+                      fontSize: isMobile ? 28 : 48,
                       height: 1.5,
                       letterSpacing: 1,
                     ),
                   ),
 
-                  SizedBox(height: isMobile ? 40 : 80),
+                  SizedBox(height: isMobile ? 60 : 100),
+
+                  // Gmail Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Image.asset(
+                          'assets/images/gmail.png',
+                          width: isMobile ? 40 : 60,
+                          height: isMobile ? 40 : 60,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Gmail:',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: isMobile ? 32 : 48,
+                            ),
+                          ),
+                          Text(
+                            '...',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: isMobile ? 28 : 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: isMobile ? 40 : 60),
+
+                  // WhatsApp Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Image.asset(
+                          'assets/images/whatsapp.png',
+                          width: isMobile ? 40 : 60,
+                          height: isMobile ? 40 : 60,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Whatsapp:',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: isMobile ? 32 : 48,
+                            ),
+                          ),
+                          Text(
+                            '...',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: isMobile ? 28 : 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: isMobile ? 80 : 120),
+
+                  // Social Media Text
+                  Text(
+                    'And you can chekc my social media on below',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 24 : 36,
+                      letterSpacing: 1,
+                    ),
+                  ),
+
+                  SizedBox(height: isMobile ? 10 : 15),
 
                   // Social Media Icons
-                  isMobile
-                      ? Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SocialMediaIcon(
-                                  imagePath: 'assets/images/instagram.png',
-                                  label: 'JUST_K513',
-                                  isMobile: true,
-                                ),
-                                const SizedBox(width: 30),
-                                SocialMediaIcon(
-                                  imagePath: 'assets/images/gmail.png',
-                                  label: '',
-                                  isMobile: true,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 30),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SocialMediaIcon(
-                                  imagePath: 'assets/images/youtube.png',
-                                  label: 'KEVIN ZONE',
-                                  isMobile: true,
-                                ),
-                                const SizedBox(width: 30),
-                                SocialMediaIcon(
-                                  imagePath: 'assets/images/whatsapp.png',
-                                  label: '',
-                                  isMobile: true,
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SocialMediaIcon(
-                              imagePath: 'assets/images/instagram.png',
-                              label: 'JUST_K513',
-                            ),
-                            const SizedBox(width: 60),
-                            SocialMediaIcon(
-                              imagePath: 'assets/images/gmail.png',
-                              label: '',
-                            ),
-                            const SizedBox(width: 60),
-                            SocialMediaIcon(
-                              imagePath: 'assets/images/youtube.png',
-                              label: 'KEVIN ZONE',
-                            ),
-                            const SizedBox(width: 60),
-                            SocialMediaIcon(
-                              imagePath: 'assets/images/whatsapp.png',
-                              label: '',
-                            ),
-                          ],
-                        ),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: isMobile ? 20 : 40,
+                    runSpacing: 20,
+                    children: [
+                      _buildSocialMediaIcon(
+                        'assets/images/instagram.png',
+                        isMobile,
+                      ),
+                      _buildSocialMediaIcon(
+                        'assets/images/facebook.png',
+                        isMobile,
+                      ),
+                      _buildSocialMediaIcon(
+                        'assets/images/Twitter.png',
+                        isMobile,
+                        scale: 1.8,
+                      ),
+                      _buildSocialMediaIcon(
+                        'assets/images/youtube.png',
+                        isMobile,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSocialMediaIcon(
+    String imagePath,
+    bool isMobile, {
+    double scale = 1.0,
+  }) {
+    final size = (isMobile ? 60 : 80) * scale;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+      child: Image.asset(imagePath, fit: BoxFit.contain),
     );
   }
 }
