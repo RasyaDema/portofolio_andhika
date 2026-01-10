@@ -161,102 +161,140 @@ class AboutPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title
-        Text(
-          'ABOUT',
-          style: GoogleFonts.jersey10(
-            color: Colors.white,
-            fontSize: 45,
-            fontWeight: FontWeight.bold,
+        // Background blur image with text overlay
+        Container(
+          height: 700,
+          width: double.infinity,
+          child: Stack(
+            children: [
+              // Blurred background
+              Positioned.fill(
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                  child: Image.asset(
+                    'assets/images/about1.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(color: Colors.grey[900]);
+                    },
+                  ),
+                ),
+              ),
+
+              // Text content overlay
+              Positioned.fill(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Title
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'ABOUT',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: 45,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'JUST_K',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          // Red dashed line
+                          CustomPaint(
+                            painter: RedDashedLinePainter(),
+                            child: const SizedBox(height: 2, width: 200),
+                          ),
+                        ],
+                      ),
+
+                      // Text content
+                      Text(
+                        "It's an honor to have you visit my portfolio.\n"
+                        "Curious about what I've been creating\n"
+                        "over the past years?\n"
+                        "On this website, you'll find a detailed\n"
+                        "look at my creative process.",
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: 20,
+                          height: 1.5,
+                        ),
+                      ),
+
+                      // Quote with red lines
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomPaint(
+                            painter: RedDashedLinePainter(),
+                            child: const SizedBox(height: 2, width: 150),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '"MAKING REAL SOMETHING YOU IMAGINE"',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white,
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          CustomPaint(
+                            painter: RedDashedLinePainter(),
+                            child: const SizedBox(height: 2, width: 150),
+                          ),
+                        ],
+                      ),
+
+                      // Roles
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'COSPLAYER |',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 24,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'PHOTOSHOP MANIPULATOR DESIGNER |',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 24,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '3D ANIMATOR |',
+                            style: GoogleFonts.jersey10(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 24,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 10),
-        Text(
-          'JUST_K',
-          style: GoogleFonts.jersey10(
-            color: Colors.white,
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        // Red dashed line
-        CustomPaint(
-          painter: RedDashedLinePainter(),
-          child: const SizedBox(height: 2, width: 200),
-        ),
-        const SizedBox(height: 30),
 
-        // Text content
-        Text(
-          "It's an honor to have you visit my portfolio.\n"
-          "Curious about what I've been creating\n"
-          "over the past years?\n"
-          "On this website, you'll find a detailed\n"
-          "look at my creative process.",
-          style: GoogleFonts.jersey10(
-            color: Colors.white,
-            fontSize: 20,
-            height: 1.5,
-          ),
-        ),
-        const SizedBox(height: 30),
-
-        // Quote with red lines
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomPaint(
-              painter: RedDashedLinePainter(),
-              child: const SizedBox(height: 2, width: 150),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              '"MAKING REAL SOMETHING YOU IMAGINE"',
-              style: GoogleFonts.jersey10(
-                color: Colors.white,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            CustomPaint(
-              painter: RedDashedLinePainter(),
-              child: const SizedBox(height: 2, width: 150),
-            ),
-          ],
-        ),
-        const SizedBox(height: 30),
-
-        // Roles
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'COSPLAYER |',
-              style: GoogleFonts.jersey10(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 24,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'PHOTOSHOP MANIPULATOR DESIGNER |',
-              style: GoogleFonts.jersey10(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 24,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              '3D ANIMATOR |',
-              style: GoogleFonts.jersey10(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 24,
-              ),
-            ),
-          ],
-        ),
         const SizedBox(height: 30),
 
         // Images
