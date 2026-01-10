@@ -1,8 +1,7 @@
 {
-  "buildCommand": "echo 'Using pre-built Flutter web'",
+  "buildCommand": "bash build.sh",
   "outputDirectory": "build/web",
-  "framework": null,
-  "installCommand": "echo 'No installation needed'",
+  "installCommand": "echo 'Installing dependencies...' && flutter pub get || echo 'Flutter not yet available'",
   "routes": [
     {
       "src": "/(.*)",
