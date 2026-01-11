@@ -176,7 +176,9 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home2.png'),
-                  fit: BoxFit.cover,
+                  fit: isMobile
+                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                      : BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
@@ -268,7 +270,9 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home3.png'),
-                  fit: BoxFit.cover,
+                  fit: isMobile
+                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                      : BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
@@ -360,7 +364,9 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home4.png'),
-                  fit: BoxFit.cover,
+                  fit: isMobile
+                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                      : BoxFit.cover,
                   alignment: Alignment.center,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
