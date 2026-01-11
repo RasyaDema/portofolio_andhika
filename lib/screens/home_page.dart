@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : 200,
+              height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home2.png'),
@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: 56,
+                        fontSize: isMobile ? 32 : 56,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: isMobile ? 20 : 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : 200,
+              height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home3.png'),
@@ -285,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: 52,
+                        fontSize: isMobile ? 28 : 52,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -304,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: isMobile ? 20 : 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
@@ -356,7 +356,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : 200,
+              height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home4.png'),
@@ -377,7 +377,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: 56,
+                        fontSize: isMobile ? 32 : 56,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -396,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: isMobile ? 20 : 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
