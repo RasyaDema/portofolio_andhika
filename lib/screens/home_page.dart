@@ -122,13 +122,16 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: isMobile ? 12 : 20),
 
             // Services Text
-            Text(
-              'WHAT SERVICES THAT I DO?',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.jersey10(
-                color: Colors.white,
-                fontSize: isMobile ? 42 : 64,
-                letterSpacing: 2,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+              child: Text(
+                'WHAT SERVICES THAT I DO?',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.jersey10(
+                  color: Colors.white,
+                  fontSize: isMobile ? 32 : 64,
+                  letterSpacing: 2,
+                ),
               ),
             ),
 
@@ -169,9 +172,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isMobile
-                  ? (isHovered ? 300 : 150)
-                  : (isHovered ? 350 : 200),
+              height: isHovered ? 350 : 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home2.png'),
@@ -192,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: isMobile ? 36 : 56,
+                        fontSize: 56,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -211,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
+                            fontSize: 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
@@ -263,9 +264,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isMobile
-                  ? (isHovered ? 300 : 150)
-                  : (isHovered ? 350 : 200),
+              height: isHovered ? 350 : 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home3.png'),
@@ -286,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: isMobile ? 32 : 52,
+                        fontSize: 52,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -305,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
+                            fontSize: 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
@@ -357,9 +356,7 @@ class _HomePageState extends State<HomePage> {
                 : (_) => setState(() => _hoveredSection = null),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isMobile
-                  ? (isHovered ? 300 : 150)
-                  : (isHovered ? 350 : 200),
+              height: isHovered ? 350 : 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/images/Home4.png'),
@@ -380,7 +377,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jersey10(
                         color: Colors.white,
-                        fontSize: isMobile ? 36 : 56,
+                        fontSize: 56,
                         letterSpacing: 2,
                         shadows: [
                           Shadow(
@@ -399,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jersey10(
                             color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
+                            fontSize: 32,
                             letterSpacing: 1.5,
                             shadows: [
                               Shadow(
@@ -488,36 +485,31 @@ class _HomePageState extends State<HomePage> {
 
   // Mobile Navbar
   Widget _buildMobileNavbar(BuildContext context) {
-    return Column(
-      children: [
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
-            NavItem(
-              text: 'ABOUT',
-              isMobile: true,
-              isActive: false,
-              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
-            ),
-            NavItem(
-              text: 'PORTOFOLIO',
-              isMobile: true,
-              isActive: false,
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, '/portfolio'),
-            ),
-            NavItem(
-              text: 'CONTACT',
-              isMobile: true,
-              isActive: false,
-              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
-            ),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
+          NavItem(
+            text: 'ABOUT',
+            isMobile: true,
+            isActive: false,
+            onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+          ),
+          NavItem(
+            text: 'PORTOFOLIO',
+            isMobile: true,
+            isActive: false,
+            onTap: () => Navigator.pushReplacementNamed(context, '/portfolio'),
+          ),
+          NavItem(
+            text: 'CONTACT',
+            isMobile: true,
+            isActive: false,
+            onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -564,41 +556,47 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMobileFooter(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'JUST_K',
-          style: GoogleFonts.jersey10(
-            color: Colors.white.withOpacity(0.45),
-            fontSize: 35,
-            letterSpacing: 2,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              Text(
+                'JUST_K',
+                style: GoogleFonts.jersey10(
+                  color: Colors.white.withOpacity(0.45),
+                  fontSize: 35,
+                  letterSpacing: 2,
+                ),
+              ),
+              const SizedBox(width: 20),
+              NavItem(
+                text: 'HOME',
+                isMobile: true,
+                isActive: true,
+                onTap: () {},
+              ),
+              NavItem(
+                text: 'ABOUT',
+                isMobile: true,
+                isActive: false,
+                onTap: () => Navigator.pushReplacementNamed(context, '/about'),
+              ),
+              NavItem(
+                text: 'PORTOFOLIO',
+                isMobile: true,
+                isActive: false,
+                onTap: () =>
+                    Navigator.pushReplacementNamed(context, '/portfolio'),
+              ),
+              NavItem(
+                text: 'CONTACT',
+                isMobile: true,
+                isActive: false,
+                onTap: () =>
+                    Navigator.pushReplacementNamed(context, '/contact'),
+              ),
+            ],
           ),
-        ),
-        const SizedBox(height: 15),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
-            NavItem(
-              text: 'ABOUT',
-              isMobile: true,
-              isActive: false,
-              onTap: () => Navigator.pushReplacementNamed(context, '/about'),
-            ),
-            NavItem(
-              text: 'PORTOFOLIO',
-              isMobile: true,
-              isActive: false,
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, '/portfolio'),
-            ),
-            NavItem(
-              text: 'CONTACT',
-              isMobile: true,
-              isActive: false,
-              onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
-            ),
-          ],
         ),
         const SizedBox(height: 20),
         Row(
