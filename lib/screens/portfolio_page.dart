@@ -227,7 +227,7 @@ class _PortfolioPageState extends State<PortfolioPage>
         : 'assets/images/design.png';
 
     return Container(
-      height: isMobile ? 500 : 700,
+      height: isMobile ? 600 : 700,
       width: double.infinity,
       child: Stack(
         children: [
@@ -237,7 +237,9 @@ class _PortfolioPageState extends State<PortfolioPage>
               animation: _scrollController,
               builder: (context, child) {
                 final screenWidth = MediaQuery.of(context).size.width;
-                final imageWidth = screenWidth * 1.5;
+                final imageWidth = isMobile
+                    ? screenWidth * 2.5
+                    : screenWidth * 1.5;
                 final offset = _scrollController.value * imageWidth;
 
                 return ClipRect(
