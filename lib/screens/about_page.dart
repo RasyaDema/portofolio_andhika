@@ -31,58 +31,45 @@ class AboutPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
                   child: isMobile
-                      ? Column(
-                          children: [
-                            Text(
-                              'JUST_K',
-                              style: GoogleFonts.jersey10(
-                                color: Colors.white.withOpacity(0.45),
-                                fontSize: 35,
-                                letterSpacing: 2,
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              NavItem(
+                                text: 'HOME',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/',
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 15),
-                            Wrap(
-                              alignment: WrapAlignment.center,
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: [
-                                NavItem(
-                                  text: 'HOME',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/',
-                                  ),
+                              NavItem(
+                                text: 'ABOUT',
+                                isMobile: true,
+                                isActive: true,
+                                onTap: () {},
+                              ),
+                              NavItem(
+                                text: 'PORTOFOLIO',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/portfolio',
                                 ),
-                                NavItem(
-                                  text: 'ABOUT',
-                                  isMobile: true,
-                                  isActive: true,
-                                  onTap: () {},
+                              ),
+                              NavItem(
+                                text: 'CONTACT',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/contact',
                                 ),
-                                NavItem(
-                                  text: 'PORTOFOLIO',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/portfolio',
-                                  ),
-                                ),
-                                NavItem(
-                                  text: 'CONTACT',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/contact',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         )
                       : Row(
                           children: [
@@ -158,166 +145,176 @@ class AboutPage extends StatelessWidget {
   }
 
   Widget _buildMobileLayout(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Background blur image with text overlay
-        Container(
-          height: 700,
-          width: double.infinity,
-          child: Stack(
+    return Container(
+      height: 800,
+      child: Stack(
+        children: [
+          // Background images (about1.png blur di kiri, about2.png di kanan)
+          Row(
             children: [
-              // Blurred background
-              Positioned.fill(
+              // Left: Blur background
+              Expanded(
+                flex: 3,
                 child: ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
                   child: Image.asset(
                     'assets/images/about1.png',
                     fit: BoxFit.cover,
+                    height: double.infinity,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(color: Colors.grey[900]);
                     },
                   ),
                 ),
               ),
-
-              // Text content overlay
-              Positioned.fill(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Title
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'ABOUT',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white,
-                              fontSize: 45,
-                              fontWeight: FontWeight.bold,
-                            ),
+              // Right: Person image
+              Expanded(
+                flex: 2,
+                child: ClipRect(
+                  child: Image.asset(
+                    'assets/images/about2.png',
+                    fit: BoxFit.cover,
+                    height: double.infinity,
+                    alignment: Alignment.topCenter,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[900],
+                        child: const Center(
+                          child: Icon(
+                            Icons.image,
+                            color: Colors.white,
+                            size: 80,
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'JUST_K',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white,
-                              fontSize: 60,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          // Red dashed line
-                          CustomPaint(
-                            painter: RedDashedLinePainter(),
-                            child: const SizedBox(height: 2, width: 200),
-                          ),
-                        ],
-                      ),
-
-                      // Text content
-                      Text(
-                        "It's an honor to have you visit my portfolio.\n"
-                        "Curious about what I've been creating\n"
-                        "over the past years?\n"
-                        "On this website, you'll find a detailed\n"
-                        "look at my creative process.",
-                        style: GoogleFonts.jersey10(
-                          color: Colors.white,
-                          fontSize: 20,
-                          height: 1.5,
                         ),
-                      ),
-
-                      // Quote with red lines
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomPaint(
-                            painter: RedDashedLinePainter(),
-                            child: const SizedBox(height: 2, width: 150),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            '"MAKING REAL SOMETHING YOU IMAGINE"',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white,
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          CustomPaint(
-                            painter: RedDashedLinePainter(),
-                            child: const SizedBox(height: 2, width: 150),
-                          ),
-                        ],
-                      ),
-
-                      // Roles
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'COSPLAYER |',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 24,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'PHOTOSHOP MANIPULATOR DESIGNER |',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 24,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            '3D ANIMATOR |',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 24,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ),
             ],
           ),
-        ),
 
-        const SizedBox(height: 30),
+          // Text content overlay (di atas gambar blur kiri)
+          Positioned(
+            left: 20,
+            top: 30,
+            bottom: 30,
+            right: MediaQuery.of(context).size.width * 0.42,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Title section
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ABOUT',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: 45,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'JUST_K',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Red dashed line
+                      CustomPaint(
+                        painter: RedDashedLinePainter(),
+                        child: const SizedBox(height: 2, width: 200),
+                      ),
+                    ],
+                  ),
 
-        // Images
-        ClipRect(
-          child: Image.asset(
-            'assets/images/about2.png',
-            width: double.infinity,
-            height: 400,
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                width: double.infinity,
-                height: 400,
-                color: Colors.grey[900],
-                child: const Center(
-                  child: Icon(Icons.image, color: Colors.white, size: 80),
-                ),
-              );
-            },
+                  const SizedBox(height: 30),
+
+                  // Text content
+                  Text(
+                    "It's an honor to have you visit my portfolio.\n"
+                    "Curious about what I've been creating\n"
+                    "over the past years?\n"
+                    "On this website, you'll find a detailed\n"
+                    "look at my creative process.",
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: 20,
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Quote with red lines
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomPaint(
+                        painter: RedDashedLinePainter(),
+                        child: const SizedBox(height: 2, width: 150),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        '"MAKING REAL SOMETHING YOU IMAGINE"',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      CustomPaint(
+                        painter: RedDashedLinePainter(),
+                        child: const SizedBox(height: 2, width: 150),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Roles section
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'COSPLAYER |',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'PHOTOSHOP MANIPULATOR DESIGNER |',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        '3D ANIMATOR |',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
