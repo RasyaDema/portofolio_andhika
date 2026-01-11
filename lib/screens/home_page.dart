@@ -13,6 +13,62 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int? _hoveredSection; // null, 2, 3, or 4
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _section2Key = GlobalKey();
+  final GlobalKey _section3Key = GlobalKey();
+  final GlobalKey _section4Key = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+    
+    if (!isMobile) return; // Only for mobile
+
+    final scrollPosition = _scrollController.position.pixels;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final triggerPoint = screenHeight * 0.4; // 40% dari atas screen
+
+    // Check each section
+    _checkSectionVisibility(_section2Key, 2, scrollPosition, triggerPoint);
+    _checkSectionVisibility(_section3Key, 3, scrollPosition, triggerPoint);
+    _checkSectionVisibility(_section4Key, 4, scrollPosition, triggerPoint);
+  }
+
+  void _checkSectionVisibility(GlobalKey key, int sectionNumber, double scrollPosition, double triggerPoint) {
+    final RenderBox? renderBox = key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      final position = renderBox.localToGlobal(Offset.zero);
+      final sectionTop = position.dy;
+      final sectionBottom = sectionTop + renderBox.size.height;
+
+      // Check if section is near trigger point
+      if (sectionTop <= triggerPoint && sectionBottom >= triggerPoint) {
+        if (_hoveredSection != sectionNumber) {
+          setState(() {
+            _hoveredSection = sectionNumber;
+          });
+        }
+      } else if (_hoveredSection == sectionNumber) {
+        // Clear hover when section moves away from trigger
+        setState(() {
+          _hoveredSection = null;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             // ================= SECTION 1: NAVBAR + WELCOME + SERVICES =================
@@ -148,6 +205,7 @@ class _HomePageState extends State<HomePage> {
     final isOtherHovered = _hoveredSection != null && _hoveredSection != 2;
 
     return Column(
+      key: _section2Key,
       children: [
         // Red dashed line
         CustomPaint(
@@ -155,22 +213,10 @@ class _HomePageState extends State<HomePage> {
           child: const SizedBox(height: 1, width: double.infinity),
         ),
 
-        GestureDetector(
-          onTap: isMobile
-              ? () {
-                  setState(() {
-                    _hoveredSection = _hoveredSection == 2 ? null : 2;
-                  });
-                }
-              : null,
-          child: MouseRegion(
-            onEnter: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = 2),
-            onExit: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = null),
-            child: AnimatedContainer(
+        MouseRegion(
+          onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 2),
+          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
@@ -231,8 +277,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-      ],
+        ],
     );
   }
 
@@ -242,6 +287,7 @@ class _HomePageState extends State<HomePage> {
     final isOtherHovered = _hoveredSection != null && _hoveredSection != 3;
 
     return Column(
+      key: _section3Key,
       children: [
         // Red dashed line
         CustomPaint(
@@ -249,22 +295,10 @@ class _HomePageState extends State<HomePage> {
           child: const SizedBox(height: 1, width: double.infinity),
         ),
 
-        GestureDetector(
-          onTap: isMobile
-              ? () {
-                  setState(() {
-                    _hoveredSection = _hoveredSection == 3 ? null : 3;
-                  });
-                }
-              : null,
-          child: MouseRegion(
-            onEnter: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = 3),
-            onExit: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = null),
-            child: AnimatedContainer(
+        MouseRegion(
+          onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 3),
+          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
@@ -325,8 +359,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-      ],
+        ],
     );
   }
 
@@ -336,6 +369,7 @@ class _HomePageState extends State<HomePage> {
     final isOtherHovered = _hoveredSection != null && _hoveredSection != 4;
 
     return Column(
+      key: _section4Key,
       children: [
         // Red dashed line
         CustomPaint(
@@ -343,22 +377,10 @@ class _HomePageState extends State<HomePage> {
           child: const SizedBox(height: 1, width: double.infinity),
         ),
 
-        GestureDetector(
-          onTap: isMobile
-              ? () {
-                  setState(() {
-                    _hoveredSection = _hoveredSection == 4 ? null : 4;
-                  });
-                }
-              : null,
-          child: MouseRegion(
-            onEnter: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = 4),
-            onExit: isMobile
-                ? null
-                : (_) => setState(() => _hoveredSection = null),
-            child: AnimatedContainer(
+        MouseRegion(
+          onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 4),
+          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               height: isHovered ? 350 : (isMobile ? 150 : 200),
               decoration: BoxDecoration(
@@ -419,8 +441,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-      ],
+        ],
     );
   }
 
