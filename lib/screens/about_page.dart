@@ -39,7 +39,7 @@ class AboutPage extends StatelessWidget {
                                 'JUST_K',
                                 style: GoogleFonts.jersey10(
                                   color: Colors.white.withOpacity(0.45),
-                                  fontSize: 35,
+                                  fontSize: 28,
                                   letterSpacing: 2,
                                 ),
                               ),
@@ -155,7 +155,7 @@ class AboutPage extends StatelessWidget {
 
   Widget _buildMobileLayout(BuildContext context) {
     return Container(
-      height: 450,
+      height: 400,
       child: Stack(
         children: [
           // Background images (about1.png blur di kiri, about2.png di kanan)
@@ -222,20 +222,20 @@ class AboutPage extends StatelessWidget {
                         'ABOUT',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 28,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 3),
+                      const SizedBox(height: 2),
                       Text(
                         'JUST_K',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 36,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 5),
                       // Red dashed line
                       CustomPaint(
                         painter: RedDashedLinePainter(),
@@ -244,7 +244,7 @@ class AboutPage extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   // Text content
                   Text(
@@ -255,12 +255,12 @@ class AboutPage extends StatelessWidget {
                     "look at my creative process.",
                     style: GoogleFonts.jersey10(
                       color: Colors.white,
-                      fontSize: 13,
-                      height: 1.4,
+                      fontSize: 12,
+                      height: 1.3,
                     ),
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   // Quote with red lines
                   Column(
@@ -270,16 +270,16 @@ class AboutPage extends StatelessWidget {
                         painter: RedDashedLinePainter(),
                         child: const SizedBox(height: 2, width: 90),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 4),
                       Text(
                         '"MAKING REAL SOMETHING YOU IMAGINE"',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 4),
                       CustomPaint(
                         painter: RedDashedLinePainter(),
                         child: const SizedBox(height: 2, width: 90),
@@ -287,7 +287,7 @@ class AboutPage extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   // Roles section
                   Column(
@@ -297,26 +297,26 @@ class AboutPage extends StatelessWidget {
                         'COSPLAYER |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 13,
+                          fontSize: 12,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 4),
                       Text(
                         'PHOTOSHOP MANIPULATOR DESIGNER |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 13,
+                          fontSize: 12,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 4),
                       Text(
                         '3D ANIMATOR |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 13,
+                          fontSize: 12,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
                       // Red dashed line terakhir
                       CustomPaint(
                         painter: RedDashedLinePainter(),
