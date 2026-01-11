@@ -227,18 +227,22 @@ class _PortfolioPageState extends State<PortfolioPage>
         : 'assets/images/design.png';
 
     return Container(
-      height: isMobile ? 600 : 700,
+      height: isMobile ? 700 : 700,
       width: double.infinity,
       child: Stack(
         children: [
           // Background image dengan seamless scrolling
-          Positioned.fill(
+          Positioned(
+            top: isMobile ? -50 : 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: AnimatedBuilder(
               animation: _scrollController,
               builder: (context, child) {
                 final screenWidth = MediaQuery.of(context).size.width;
                 final imageWidth = isMobile
-                    ? screenWidth * 2.5
+                    ? screenWidth * 3.5
                     : screenWidth * 1.5;
                 final offset = _scrollController.value * imageWidth;
 
