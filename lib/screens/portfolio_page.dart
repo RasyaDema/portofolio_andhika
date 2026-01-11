@@ -54,60 +54,54 @@ class _PortfolioPageState extends State<PortfolioPage>
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
                   child: isMobile
-                      ? Column(
-                          children: [
-                            // Logo untuk mobile
-                            Text(
-                              'JUST_K',
-                              style: GoogleFonts.jersey10(
-                                color: Colors.white.withOpacity(0.45),
-                                fontSize: 35,
-                                letterSpacing: 2,
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Text(
+                                'JUST_K',
+                                style: GoogleFonts.jersey10(
+                                  color: Colors.white.withOpacity(0.45),
+                                  fontSize: 28,
+                                  letterSpacing: 2,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 15),
-                            // Menu untuk mobile (wrap)
-                            Wrap(
-                              alignment: WrapAlignment.center,
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: [
-                                NavItem(
-                                  text: 'HOME',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/',
-                                  ),
+                              const SizedBox(width: 20),
+                              NavItem(
+                                text: 'HOME',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/',
                                 ),
-                                NavItem(
-                                  text: 'ABOUT',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/about',
-                                  ),
+                              ),
+                              NavItem(
+                                text: 'ABOUT',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/about',
                                 ),
-                                NavItem(
-                                  text: 'PORTOFOLIO',
-                                  isMobile: true,
-                                  isActive: true,
-                                  onTap: () {},
+                              ),
+                              NavItem(
+                                text: 'PORTOFOLIO',
+                                isMobile: true,
+                                isActive: true,
+                                onTap: () {},
+                              ),
+                              NavItem(
+                                text: 'CONTACT',
+                                isMobile: true,
+                                isActive: false,
+                                onTap: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  '/contact',
                                 ),
-                                NavItem(
-                                  text: 'CONTACT',
-                                  isMobile: true,
-                                  isActive: false,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    '/contact',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         )
                       : Row(
                           children: [
@@ -233,7 +227,7 @@ class _PortfolioPageState extends State<PortfolioPage>
         : 'assets/images/design.png';
 
     return Container(
-      height: isMobile ? 400 : 700,
+      height: isMobile ? 500 : 700,
       width: double.infinity,
       child: Stack(
         children: [
@@ -257,8 +251,8 @@ class _PortfolioPageState extends State<PortfolioPage>
                             width: imageWidth,
                             child: ImageFiltered(
                               imageFilter: ImageFilter.blur(
-                                sigmaX: 10,
-                                sigmaY: 10,
+                                sigmaX: 5,
+                                sigmaY: 5,
                               ),
                               child: Image.asset(
                                 imagePath,
