@@ -35,6 +35,15 @@ class AboutPage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
+                              Text(
+                                'JUST_K',
+                                style: GoogleFonts.jersey10(
+                                  color: Colors.white.withOpacity(0.45),
+                                  fontSize: 35,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              const SizedBox(width: 20),
                               NavItem(
                                 text: 'HOME',
                                 isMobile: true,
@@ -146,7 +155,7 @@ class AboutPage extends StatelessWidget {
 
   Widget _buildMobileLayout(BuildContext context) {
     return Container(
-      height: 800,
+      height: 600,
       child: Stack(
         children: [
           // Background images (about1.png blur di kiri, about2.png di kanan)
@@ -196,10 +205,10 @@ class AboutPage extends StatelessWidget {
 
           // Text content overlay (di atas gambar blur kiri)
           Positioned(
-            left: 20,
-            top: 30,
-            bottom: 30,
-            right: MediaQuery.of(context).size.width * 0.42,
+            left: 15,
+            top: 20,
+            bottom: 20,
+            right: MediaQuery.of(context).size.width * 0.45,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +222,7 @@ class AboutPage extends StatelessWidget {
                         'ABOUT',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 45,
+                          fontSize: 35,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -222,7 +231,7 @@ class AboutPage extends StatelessWidget {
                         'JUST_K',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 60,
+                          fontSize: 45,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -230,12 +239,12 @@ class AboutPage extends StatelessWidget {
                       // Red dashed line
                       CustomPaint(
                         painter: RedDashedLinePainter(),
-                        child: const SizedBox(height: 2, width: 200),
+                        child: const SizedBox(height: 2, width: 150),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
 
                   // Text content
                   Text(
@@ -246,12 +255,12 @@ class AboutPage extends StatelessWidget {
                     "look at my creative process.",
                     style: GoogleFonts.jersey10(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 16,
                       height: 1.5,
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
 
                   // Quote with red lines
                   Column(
@@ -259,26 +268,26 @@ class AboutPage extends StatelessWidget {
                     children: [
                       CustomPaint(
                         painter: RedDashedLinePainter(),
-                        child: const SizedBox(height: 2, width: 150),
+                        child: const SizedBox(height: 2, width: 120),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       Text(
                         '"MAKING REAL SOMETHING YOU IMAGINE"',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
-                          fontSize: 28,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       CustomPaint(
                         painter: RedDashedLinePainter(),
-                        child: const SizedBox(height: 2, width: 150),
+                        child: const SizedBox(height: 2, width: 120),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
 
                   // Roles section
                   Column(
@@ -288,23 +297,23 @@ class AboutPage extends StatelessWidget {
                         'COSPLAYER |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       Text(
                         'PHOTOSHOP MANIPULATOR DESIGNER |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       Text(
                         '3D ANIMATOR |',
                         style: GoogleFonts.jersey10(
                           color: Colors.white.withOpacity(0.7),
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       ),
                     ],
