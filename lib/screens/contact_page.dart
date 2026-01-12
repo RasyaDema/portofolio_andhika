@@ -228,7 +228,7 @@ class _ContactPageState extends State<ContactPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '0819-3024-5540',
+                        '+62 819-3024-5540',
                         style: GoogleFonts.jersey10(
                           color: Colors.white,
                           fontSize: isMobile ? 28 : 40,
