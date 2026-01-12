@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
 
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -167,22 +173,17 @@ class ContactPage extends StatelessWidget {
                   SizedBox(height: isMobile ? 60 : 100),
 
                   // Gmail Section
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Image.asset(
-                          'assets/images/gmail.png',
-                          width: isMobile ? 40 : 60,
-                          height: isMobile ? 40 : 60,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Image.asset(
+                            'assets/images/gmail.png',
+                            width: isMobile ? 40 : 60,
+                            height: isMobile ? 40 : 60,
+                          ),
+                          const SizedBox(width: 8),
                           Text(
                             'Gmail:',
                             style: GoogleFonts.jersey10(
@@ -190,14 +191,14 @@ class ContactPage extends StatelessWidget {
                               fontSize: isMobile ? 32 : 48,
                             ),
                           ),
-                          Text(
-                            '...',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white,
-                              fontSize: isMobile ? 28 : 40,
-                            ),
-                          ),
                         ],
+                      ),
+                      Text(
+                        'Jaust.k513@gmail.com',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 28 : 40,
+                        ),
                       ),
                     ],
                   ),
@@ -205,22 +206,17 @@ class ContactPage extends StatelessWidget {
                   SizedBox(height: isMobile ? 40 : 60),
 
                   // WhatsApp Section
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Image.asset(
-                          'assets/images/whatsapp.png',
-                          width: isMobile ? 40 : 60,
-                          height: isMobile ? 40 : 60,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Image.asset(
+                            'assets/images/whatsapp.png',
+                            width: isMobile ? 40 : 60,
+                            height: isMobile ? 40 : 60,
+                          ),
+                          const SizedBox(width: 8),
                           Text(
                             'Whatsapp:',
                             style: GoogleFonts.jersey10(
@@ -228,14 +224,15 @@ class ContactPage extends StatelessWidget {
                               fontSize: isMobile ? 32 : 48,
                             ),
                           ),
-                          Text(
-                            '...',
-                            style: GoogleFonts.jersey10(
-                              color: Colors.white,
-                              fontSize: isMobile ? 28 : 40,
-                            ),
-                          ),
                         ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '0819-3024-5540',
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 28 : 40,
+                        ),
                       ),
                     ],
                   ),
@@ -244,7 +241,7 @@ class ContactPage extends StatelessWidget {
 
                   // Social Media Text
                   Text(
-                    'And you can chekc my social media on below',
+                    'And you can check my social media on below',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.jersey10(
                       color: Colors.white,
@@ -265,19 +262,22 @@ class ContactPage extends StatelessWidget {
                       _buildSocialMediaIcon(
                         'assets/images/instagram.png',
                         isMobile,
+                        'https://www.instagram.com/just_k513?igsh=cjM1aHhubWwwbTFn',
                       ),
                       _buildSocialMediaIcon(
                         'assets/images/facebook.png',
                         isMobile,
+                        'https://www.facebook.com/share/17yMPhunSo/',
                       ),
                       _buildSocialMediaIcon(
-                        'assets/images/Twitter.png',
+                        'assets/images/Tiktok.png',
                         isMobile,
-                        scale: 1.8,
+                        'https://www.tiktok.com/@just_k513?_r=1&_t=ZS-930Ra99jgzI',
                       ),
                       _buildSocialMediaIcon(
                         'assets/images/youtube.png',
                         isMobile,
+                        'https://youtube.com/@kevinzone7676?si=6nPdXy5ilBqbD72J',
                       ),
                     ],
                   ),
@@ -292,15 +292,25 @@ class ContactPage extends StatelessWidget {
 
   Widget _buildSocialMediaIcon(
     String imagePath,
-    bool isMobile, {
+    bool isMobile,
+    String url, {
     double scale = 1.0,
   }) {
     final size = (isMobile ? 60 : 80) * scale;
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-      child: Image.asset(imagePath, fit: BoxFit.contain),
+    return GestureDetector(
+      onTap: () async {
+        final uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          if (!mounted) return;
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        child: Image.asset(imagePath, fit: BoxFit.contain),
+      ),
     );
   }
 }

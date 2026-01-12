@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui';
 import '../widgets/nav_item.dart';
 import '../widgets/dashed_line_painter.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   void _onScroll() {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
-    
+
     if (!isMobile) return; // Only for mobile
 
     final scrollPosition = _scrollController.position.pixels;
@@ -47,8 +48,14 @@ class _HomePageState extends State<HomePage> {
     _checkSectionVisibility(_section4Key, 4, scrollPosition, triggerPoint);
   }
 
-  void _checkSectionVisibility(GlobalKey key, int sectionNumber, double scrollPosition, double triggerPoint) {
-    final RenderBox? renderBox = key.currentContext?.findRenderObject() as RenderBox?;
+  void _checkSectionVisibility(
+    GlobalKey key,
+    int sectionNumber,
+    double scrollPosition,
+    double triggerPoint,
+  ) {
+    final RenderBox? renderBox =
+        key.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
       final position = renderBox.localToGlobal(Offset.zero);
       final sectionTop = position.dy;
@@ -215,69 +222,71 @@ class _HomePageState extends State<HomePage> {
 
         MouseRegion(
           onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 2),
-          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          onExit: isMobile
+              ? null
+              : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : (isMobile ? 150 : 200),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/images/Home2.png'),
-                  fit: isMobile
-                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                      : BoxFit.cover,
-                  alignment: Alignment.center,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
-                    BlendMode.darken,
-                  ),
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'MANIPULATION DESIGN',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.jersey10(
-                        color: Colors.white,
-                        fontSize: isMobile ? 32 : 56,
-                        letterSpacing: 2,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.8),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (isHovered) ...[
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Text(
-                          'A Design that make something Realistic\nas you imagine',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.jersey10(
-                            color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
-                            letterSpacing: 1.5,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.8),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
+            duration: const Duration(milliseconds: 300),
+            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home2.png'),
+                fit: isMobile
+                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                    : BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
+                  BlendMode.darken,
                 ),
               ),
             ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'MANIPULATION DESIGN',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 32 : 56,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'A Design that make something Realistic\nas you imagine',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-        ],
+        ),
+      ],
     );
   }
 
@@ -297,69 +306,71 @@ class _HomePageState extends State<HomePage> {
 
         MouseRegion(
           onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 3),
-          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          onExit: isMobile
+              ? null
+              : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : (isMobile ? 150 : 200),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/images/Home3.png'),
-                  fit: isMobile
-                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                      : BoxFit.cover,
-                  alignment: Alignment.center,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
-                    BlendMode.darken,
-                  ),
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'COSPLAY PARTS COMMISIONS',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.jersey10(
-                        color: Colors.white,
-                        fontSize: isMobile ? 28 : 52,
-                        letterSpacing: 2,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.8),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (isHovered) ...[
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Text(
-                          'Create a cosplay parts for your\ncharacter that wishes to cosplay as',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.jersey10(
-                            color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
-                            letterSpacing: 1.5,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.8),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
+            duration: const Duration(milliseconds: 300),
+            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home3.png'),
+                fit: isMobile
+                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                    : BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
+                  BlendMode.darken,
                 ),
               ),
             ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'COSPLAY PARTS COMMISIONS',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 28 : 52,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'Create a cosplay parts for your\ncharacter that wishes to cosplay as',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-        ],
+        ),
+      ],
     );
   }
 
@@ -379,69 +390,71 @@ class _HomePageState extends State<HomePage> {
 
         MouseRegion(
           onEnter: isMobile ? null : (_) => setState(() => _hoveredSection = 4),
-          onExit: isMobile ? null : (_) => setState(() => _hoveredSection = null),
+          onExit: isMobile
+              ? null
+              : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: isHovered ? 350 : (isMobile ? 150 : 200),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/images/Home4.png'),
-                  fit: isMobile
-                      ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                      : BoxFit.cover,
-                  alignment: Alignment.center,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
-                    BlendMode.darken,
-                  ),
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'COMMERCIAL WORK',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.jersey10(
-                        color: Colors.white,
-                        fontSize: isMobile ? 32 : 56,
-                        letterSpacing: 2,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.8),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (isHovered) ...[
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Text(
-                          'Need a design for your branding?\ni can help you with 2d and 3d',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.jersey10(
-                            color: Colors.white,
-                            fontSize: isMobile ? 20 : 32,
-                            letterSpacing: 1.5,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.8),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
+            duration: const Duration(milliseconds: 300),
+            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/images/Home4.png'),
+                fit: isMobile
+                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
+                    : BoxFit.cover,
+                alignment: Alignment.center,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
+                  BlendMode.darken,
                 ),
               ),
             ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'COMMERCIAL WORK',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.jersey10(
+                      color: Colors.white,
+                      fontSize: isMobile ? 32 : 56,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.8),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isHovered) ...[
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Text(
+                        'Need a design for your branding?\ni can help you with 2d and 3d',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: isMobile ? 20 : 32,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.8),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-        ],
+        ),
+      ],
     );
   }
 
@@ -629,13 +642,25 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildSocialIcon('assets/images/instagram.png'),
+            _buildSocialIcon(
+              'assets/images/instagram.png',
+              'https://www.instagram.com/just_k513?igsh=cjM1aHhubWwwbTFn',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/facebook.png'),
+            _buildSocialIcon(
+              'assets/images/facebook.png',
+              'https://www.facebook.com/share/17yMPhunSo/',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/youtube.png'),
+            _buildSocialIcon(
+              'assets/images/youtube.png',
+              'https://youtube.com/@kevinzone7676?si=6nPdXy5ilBqbD72J',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/Twitter.png'),
+            _buildSocialIcon(
+              'assets/images/Tiktok.png',
+              'https://www.tiktok.com/@just_k513?_r=1&_t=ZS-930Ra99jgzI',
+            ),
           ],
         ),
       ],
@@ -687,33 +712,53 @@ class _HomePageState extends State<HomePage> {
         const Spacer(),
         Row(
           children: [
-            _buildSocialIcon('assets/images/instagram.png'),
+            _buildSocialIcon(
+              'assets/images/instagram.png',
+              'https://www.instagram.com/just_k513?igsh=cjM1aHhubWwwbTFn',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/facebook.png'),
+            _buildSocialIcon(
+              'assets/images/facebook.png',
+              'https://www.facebook.com/share/17yMPhunSo/',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/youtube.png'),
+            _buildSocialIcon(
+              'assets/images/youtube.png',
+              'https://youtube.com/@kevinzone7676?si=6nPdXy5ilBqbD72J',
+            ),
             const SizedBox(width: 15),
-            _buildSocialIcon('assets/images/Twitter.png'),
+            _buildSocialIcon(
+              'assets/images/Tiktok.png',
+              'https://www.tiktok.com/@just_k513?_r=1&_t=ZS-930Ra99jgzI',
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildSocialIcon(String imagePath) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
-      ),
-      child: Center(
-        child: Image.asset(
-          imagePath,
-          width: 24,
-          height: 24,
-          fit: BoxFit.contain,
+  Widget _buildSocialIcon(String imagePath, String url) {
+    return GestureDetector(
+      onTap: () async {
+        final uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+        ),
+        child: Center(
+          child: Image.asset(
+            imagePath,
+            width: 24,
+            height: 24,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );
