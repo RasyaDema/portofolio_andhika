@@ -419,6 +419,18 @@ class _PortfolioPageState extends State<PortfolioPage>
         child: Image.asset(
           imagePath,
           fit: BoxFit.cover,
+          cacheWidth: isMobile ? 300 : 400,
+          cacheHeight: isMobile ? 400 : 500,
+          filterQuality: FilterQuality.low,
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+            if (wasSynchronouslyLoaded) return child;
+            return AnimatedOpacity(
+              opacity: frame == null ? 0 : 1,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn,
+              child: child,
+            );
+          },
           errorBuilder: (context, error, stackTrace) {
             return Container(
               color: Colors.grey[800],
