@@ -316,7 +316,7 @@ class _PortfolioPageState extends State<PortfolioPage>
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
+                      crossAxisCount: isMobile ? 3 : 4,
                       crossAxisSpacing: 15,
                       mainAxisSpacing: 15,
                       childAspectRatio: isMobile ? 0.8 : 1.0,
