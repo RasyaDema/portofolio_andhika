@@ -226,84 +226,208 @@ class _PortfolioPageState extends State<PortfolioPage>
         ? 'assets/images/cosplay.png'
         : 'assets/images/design.png';
 
-    return Container(
-      height: isMobile ? 700 : 700,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          // Background image dengan seamless scrolling
-          Positioned(
-            top: isMobile ? -50 : 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: AnimatedBuilder(
-              animation: _scrollController,
-              builder: (context, child) {
-                final screenWidth = MediaQuery.of(context).size.width;
-                final imageWidth = isMobile
-                    ? screenWidth * 3.5
-                    : screenWidth * 1.5;
-                final offset = _scrollController.value * imageWidth;
+    // Get list of images based on selected tab
+    final List<String> portfolioImages = _getPortfolioImages();
 
-                return ClipRect(
-                  child: OverflowBox(
-                    maxWidth: double.infinity,
-                    child: Transform.translate(
-                      offset: Offset(-offset, 0),
-                      child: Row(
-                        children: List.generate(3, (index) {
-                          return SizedBox(
-                            width: imageWidth,
-                            child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(
-                                sigmaX: 5,
-                                sigmaY: 5,
-                              ),
-                              child: Image.asset(
-                                imagePath,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.grey[900],
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.image,
-                                        color: Colors.white,
-                                        size: 80,
+    return Column(
+      children: [
+        // Tab buttons
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: isMobile ? 10 : 30,
+          runSpacing: isMobile ? 10 : 0,
+          children: [
+            _buildTabButton('COSPLAY', isMobile),
+            _buildTabButton('DESIGN', isMobile),
+            _buildTabButton('3D ANIMATOR', isMobile),
+          ],
+        ),
+        SizedBox(height: isMobile ? 20 : 40),
+        // Container with fixed background and scrollable images
+        Stack(
+          children: [
+            // Fixed background image dengan seamless scrolling
+            Container(
+              height: isMobile ? 700 : 800,
+              width: double.infinity,
+              child: AnimatedBuilder(
+                animation: _scrollController,
+                builder: (context, child) {
+                  final screenWidth = MediaQuery.of(context).size.width;
+                  final imageWidth = isMobile
+                      ? screenWidth * 3.5
+                      : screenWidth * 1.5;
+                  final offset = _scrollController.value * imageWidth;
+
+                  return ClipRect(
+                    child: OverflowBox(
+                      maxWidth: double.infinity,
+                      child: Transform.translate(
+                        offset: Offset(-offset, 0),
+                        child: Row(
+                          children: List.generate(3, (index) {
+                            return SizedBox(
+                              width: imageWidth,
+                              child: ImageFiltered(
+                                imageFilter: ImageFilter.blur(
+                                  sigmaX: 5,
+                                  sigmaY: 5,
+                                ),
+                                child: Image.asset(
+                                  imagePath,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[900],
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.white,
+                                          size: 80,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
 
-          // Tab buttons overlay di atas gambar
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: isMobile ? 10 : 30,
-              runSpacing: isMobile ? 10 : 0,
-              children: [
-                _buildTabButton('COSPLAY', isMobile),
-                _buildTabButton('DESIGN', isMobile),
-                _buildTabButton('3D ANIMATOR', isMobile),
-              ],
+            // Scrollable portfolio images in grid
+            Container(
+              height: isMobile ? 700 : 800,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 20 : 100,
+                  vertical: 20,
+                ),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: isMobile ? 0.8 : 1.0,
+                  ),
+                  itemCount: portfolioImages.length,
+                  itemBuilder: (context, index) {
+                    return _buildPortfolioImage(
+                      portfolioImages[index],
+                      isMobile,
+                    );
+                  },
+                ),
+              ),
             ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  List<String> _getPortfolioImages() {
+    if (selectedTab == 'COSPLAY') {
+      return [
+        'assets/Cosplay/cosplay1.png',
+        'assets/Cosplay/cosplay2.png',
+        'assets/Cosplay/cosplay3.png',
+        'assets/Cosplay/cosplay4.png',
+        'assets/Cosplay/cosplay5.png',
+        'assets/Cosplay/cosplay6.png',
+        'assets/Cosplay/cosplay7.png',
+        'assets/Cosplay/cosplay8.png',
+        'assets/Cosplay/cosplay9.png',
+        'assets/Cosplay/cosplay11.png',
+        'assets/Cosplay/cosplay12.png',
+        'assets/Cosplay/cosplay13.png',
+        'assets/Cosplay/cosplay14.png',
+        'assets/Cosplay/cosplay15.png',
+        'assets/Cosplay/cosplay16.png',
+        'assets/Cosplay/cosplay17.png',
+        'assets/Cosplay/cosplay18.png',
+        'assets/Cosplay/cosplay19.png',
+        'assets/Cosplay/cosplay20.png',
+        'assets/Cosplay/cosplay21.png',
+        'assets/Cosplay/cosplay22.png',
+        'assets/Cosplay/cosplay23.png',
+        'assets/Cosplay/cosplay24.png',
+        'assets/Cosplay/cosplay25.png',
+      ];
+    } else {
+      // DESIGN
+      return [
+        'assets/Desain/desain1.png',
+        'assets/Desain/desain2.png',
+        'assets/Desain/desain3.png',
+        'assets/Desain/desain4.png',
+        'assets/Desain/desain5.png',
+        'assets/Desain/desain6.png',
+        'assets/Desain/desain7.png',
+        'assets/Desain/desain8.png',
+        'assets/Desain/desain9.png',
+        'assets/Desain/desain10.png',
+        'assets/Desain/desain11.png',
+        'assets/Desain/desain12.png',
+        'assets/Desain/desain13.png',
+        'assets/Desain/desain14.png',
+        'assets/Desain/desain15.png',
+        'assets/Desain/desain16.png',
+        'assets/Desain/desain17.png',
+        'assets/Desain/desain18.png',
+        'assets/Desain/desain19.png',
+        'assets/Desain/desain20.png',
+        'assets/Desain/desain21.png',
+        'assets/Desain/desain22.png',
+        'assets/Desain/desain23.png',
+        'assets/Desain/desain24.png',
+        'assets/Desain/desain25.png',
+        'assets/Desain/desain26.png',
+        'assets/Desain/desain27.png',
+        'assets/Desain/desain28.png',
+        'assets/Desain/desain29.png',
+        'assets/Desain/desain30.png',
+        'assets/Desain/desain31.png',
+        'assets/Desain/desain32.png',
+        'assets/Desain/desain33.png',
+        'assets/Desain/desain34.png',
+      ];
+    }
+  }
+
+  Widget _buildPortfolioImage(String imagePath, bool isMobile) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
         ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: Colors.grey[800],
+              child: const Center(
+                child: Icon(Icons.image, color: Colors.white, size: 40),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
