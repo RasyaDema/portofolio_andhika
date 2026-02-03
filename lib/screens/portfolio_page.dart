@@ -244,95 +244,165 @@ class _PortfolioPageState extends State<PortfolioPage>
         ),
         SizedBox(height: isMobile ? 20 : 40),
         // Container with fixed background and scrollable images
-        Stack(
-          children: [
-            // Fixed background image dengan seamless scrolling
-            Container(
-              height: isMobile ? 700 : 800,
-              width: double.infinity,
-              child: AnimatedBuilder(
-                animation: _scrollController,
-                builder: (context, child) {
-                  final screenWidth = MediaQuery.of(context).size.width;
-                  final imageWidth = isMobile
-                      ? screenWidth * 3.5
-                      : screenWidth * 1.5;
-                  final offset = _scrollController.value * imageWidth;
+        isMobile
+            ? _buildMobilePortfolio(imagePath, portfolioImages)
+            : _buildDesktopPortfolio(imagePath, portfolioImages),
+      ],
+    );
+  }
 
-                  return ClipRect(
-                    child: OverflowBox(
-                      maxWidth: double.infinity,
-                      child: Transform.translate(
-                        offset: Offset(-offset, 0),
-                        child: Row(
-                          children: List.generate(3, (index) {
-                            return SizedBox(
-                              width: imageWidth,
-                              child: ImageFiltered(
-                                imageFilter: ImageFilter.blur(
-                                  sigmaX: 5,
-                                  sigmaY: 5,
-                                ),
-                                child: Image.asset(
-                                  imagePath,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: Colors.grey[900],
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.image,
-                                          color: Colors.white,
-                                          size: 80,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+  Widget _buildMobilePortfolio(String imagePath, List<String> portfolioImages) {
+    return SingleChildScrollView(
+      child: Stack(
+        children: [
+          // Background image dengan seamless scrolling
+          Positioned.fill(
+            child: AnimatedBuilder(
+              animation: _scrollController,
+              builder: (context, child) {
+                final screenWidth = MediaQuery.of(context).size.width;
+                final imageWidth = screenWidth * 3.5;
+                final offset = _scrollController.value * imageWidth;
+
+                return ClipRect(
+                  child: OverflowBox(
+                    maxWidth: double.infinity,
+                    child: Transform.translate(
+                      offset: Offset(-offset, 0),
+                      child: Row(
+                        children: List.generate(3, (index) {
+                          return SizedBox(
+                            width: imageWidth,
+                            child: ImageFiltered(
+                              imageFilter: ImageFilter.blur(
+                                sigmaX: 5,
+                                sigmaY: 5,
                               ),
-                            );
-                          }),
-                        ),
+                              child: Image.asset(
+                                imagePath,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[900],
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.image,
+                                        color: Colors.white,
+                                        size: 80,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }),
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-
-            // Scrollable portfolio images in grid - centered on mobile
-            Center(
-              child: Container(
-                height: isMobile ? 700 : 800,
-                width: isMobile
-                    ? MediaQuery.of(context).size.width * 0.85
-                    : double.infinity,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isMobile ? 10 : 100,
-                    vertical: 20,
                   ),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isMobile ? 3 : 4,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                      childAspectRatio: isMobile ? 0.8 : 1.0,
+                );
+              },
+            ),
+          ),
+
+          // Grid portfolio images
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: portfolioImages.length,
+              itemBuilder: (context, index) {
+                return _buildPortfolioImage(portfolioImages[index], true);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopPortfolio(
+    String imagePath,
+    List<String> portfolioImages,
+  ) {
+    return Stack(
+      children: [
+        // Fixed background image dengan seamless scrolling
+        Container(
+          height: 800,
+          width: double.infinity,
+          child: AnimatedBuilder(
+            animation: _scrollController,
+            builder: (context, child) {
+              final screenWidth = MediaQuery.of(context).size.width;
+              final imageWidth = screenWidth * 1.5;
+              final offset = _scrollController.value * imageWidth;
+
+              return ClipRect(
+                child: OverflowBox(
+                  maxWidth: double.infinity,
+                  child: Transform.translate(
+                    offset: Offset(-offset, 0),
+                    child: Row(
+                      children: List.generate(3, (index) {
+                        return SizedBox(
+                          width: imageWidth,
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            child: Image.asset(
+                              imagePath,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[900],
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.image,
+                                      color: Colors.white,
+                                      size: 80,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }),
                     ),
-                    itemCount: portfolioImages.length,
-                    itemBuilder: (context, index) {
-                      return _buildPortfolioImage(
-                        portfolioImages[index],
-                        isMobile,
-                      );
-                    },
                   ),
                 ),
+              );
+            },
+          ),
+        ),
+
+        // Scrollable portfolio images in grid
+        Container(
+          height: 800,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                childAspectRatio: 1.0,
               ),
+              itemCount: portfolioImages.length,
+              itemBuilder: (context, index) {
+                return _buildPortfolioImage(portfolioImages[index], false);
+              },
             ),
-          ],
+          ),
         ),
       ],
     );
