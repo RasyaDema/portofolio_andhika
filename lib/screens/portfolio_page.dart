@@ -247,7 +247,9 @@ class _PortfolioPageState extends State<PortfolioPage>
         Stack(
           children: [
             // Fixed background image dengan seamless scrolling
-            Positioned.fill(
+            Container(
+              height: isMobile ? 700 : 800,
+              width: double.infinity,
               child: AnimatedBuilder(
                 animation: _scrollController,
                 builder: (context, child) {
@@ -298,25 +300,32 @@ class _PortfolioPageState extends State<PortfolioPage>
               ),
             ),
 
-            // Portfolio images in grid
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: isMobile ? 10 : 100,
-                vertical: 20,
-              ),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 3 : 4,
-                  crossAxisSpacing: isMobile ? 8 : 15,
-                  mainAxisSpacing: isMobile ? 8 : 15,
-                  childAspectRatio: isMobile ? 0.8 : 1.0,
+            // Scrollable portfolio images in grid
+            Container(
+              height: isMobile ? 700 : 800,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 10 : 100,
+                  vertical: 20,
                 ),
-                itemCount: portfolioImages.length,
-                itemBuilder: (context, index) {
-                  return _buildPortfolioImage(portfolioImages[index], isMobile);
-                },
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: isMobile ? 3 : 4,
+                    crossAxisSpacing: isMobile ? 8 : 15,
+                    mainAxisSpacing: isMobile ? 8 : 15,
+                    childAspectRatio: isMobile ? 0.8 : 1.0,
+                  ),
+                  itemCount: portfolioImages.length,
+                  itemBuilder: (context, index) {
+                    return _buildPortfolioImage(
+                      portfolioImages[index],
+                      isMobile,
+                    );
+                  },
+                ),
               ),
             ),
           ],
