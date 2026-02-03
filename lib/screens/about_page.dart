@@ -208,7 +208,7 @@ class AboutPage extends StatelessWidget {
             left: 15,
             top: 20,
             bottom: 20,
-            right: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.55,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
