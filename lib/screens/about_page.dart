@@ -170,6 +170,9 @@ class AboutPage extends StatelessWidget {
                     'assets/images/about1.png',
                     fit: BoxFit.cover,
                     height: double.infinity,
+                    cacheWidth: 400,
+                    cacheHeight: 500,
+                    filterQuality: FilterQuality.low,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(color: Colors.grey[900]);
                     },
@@ -185,6 +188,19 @@ class AboutPage extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: double.infinity,
                     alignment: Alignment.topCenter,
+                    cacheWidth: 400,
+                    cacheHeight: 500,
+                    filterQuality: FilterQuality.medium,
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) return child;
+                          return AnimatedOpacity(
+                            opacity: frame == null ? 0 : 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeIn,
+                            child: child,
+                          );
+                        },
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         color: Colors.grey[900],
@@ -350,6 +366,9 @@ class AboutPage extends StatelessWidget {
                     'assets/images/about1.png',
                     fit: BoxFit.cover,
                     height: double.infinity,
+                    cacheWidth: 800,
+                    cacheHeight: 900,
+                    filterQuality: FilterQuality.low,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(color: Colors.grey[900]);
                     },
@@ -365,6 +384,19 @@ class AboutPage extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: double.infinity,
                     alignment: Alignment.topCenter,
+                    cacheWidth: 600,
+                    cacheHeight: 900,
+                    filterQuality: FilterQuality.medium,
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) return child;
+                          return AnimatedOpacity(
+                            opacity: frame == null ? 0 : 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeIn,
+                            child: child,
+                          );
+                        },
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         color: Colors.grey[900],
