@@ -12,24 +12,107 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int? _hoveredSection; // null, 2, 3, or 4
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _section2Key = GlobalKey();
   final GlobalKey _section3Key = GlobalKey();
   final GlobalKey _section4Key = GlobalKey();
 
+  // Animation for navbar/footer
+  late AnimationController _navAnimationController;
+  late Animation<double> _navAnimation;
+  late AnimationController _footerAnimationController;
+  late Animation<double> _footerAnimation;
+  final List<GlobalKey> _navKeys = [
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+  ];
+  final List<GlobalKey> _footerKeys = [
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+  ];
+  bool _isFirstBuild = true;
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+
+    // Initialize navbar animation
+    _navAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _navAnimation = Tween<double>(begin: 0, end: 0).animate(
+      CurvedAnimation(parent: _navAnimationController, curve: Curves.easeInOut),
+    );
+
+    // Initialize footer animation
+    _footerAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _footerAnimation = Tween<double>(begin: 0, end: 0).animate(
+      CurvedAnimation(
+        parent: _footerAnimationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    // Force rebuild after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _isFirstBuild) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isFirstBuild = false;
+            });
+          }
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _navAnimationController.dispose();
+    _footerAnimationController.dispose();
     super.dispose();
+  }
+
+  void _animateNav(int index) {
+    _navAnimation =
+        Tween<double>(
+          begin: _navAnimation.value,
+          end: index.toDouble(),
+        ).animate(
+          CurvedAnimation(
+            parent: _navAnimationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+    _navAnimationController.forward(from: 0);
+  }
+
+  void _animateFooter(int index) {
+    _footerAnimation =
+        Tween<double>(
+          begin: _footerAnimation.value,
+          end: index.toDouble(),
+        ).animate(
+          CurvedAnimation(
+            parent: _footerAnimationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+    _footerAnimationController.forward(from: 0);
   }
 
   void _onScroll() {
@@ -226,8 +309,8 @@ class _HomePageState extends State<HomePage> {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            duration: const Duration(milliseconds: 600),
+            height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home2.png'),
@@ -310,8 +393,8 @@ class _HomePageState extends State<HomePage> {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            duration: const Duration(milliseconds: 600),
+            height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home3.png'),
@@ -394,8 +477,8 @@ class _HomePageState extends State<HomePage> {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            height: isHovered ? 350 : (isMobile ? 150 : 200),
+            duration: const Duration(milliseconds: 600),
+            height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home4.png'),
@@ -525,31 +608,117 @@ class _HomePageState extends State<HomePage> {
 
   // Mobile Navbar
   Widget _buildMobileNavbar(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          NavItem(text: 'HOME', isMobile: true, isActive: true, onTap: () {}),
-          NavItem(
-            text: 'ABOUT',
-            isMobile: true,
-            isActive: false,
-            onTap: () => Navigator.pushReplacementNamed(context, '/about'),
-          ),
-          NavItem(
-            text: 'PORTOFOLIO',
-            isMobile: true,
-            isActive: false,
-            onTap: () => Navigator.pushReplacementNamed(context, '/portfolio'),
-          ),
-          NavItem(
-            text: 'CONTACT',
-            isMobile: true,
-            isActive: false,
-            onTap: () => Navigator.pushReplacementNamed(context, '/contact'),
-          ),
-        ],
-      ),
+    final navItems = ['HOME', 'ABOUT', 'PORTOFOLIO', 'CONTACT'];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            // Animated red background
+            AnimatedBuilder(
+              animation: _navAnimation,
+              builder: (context, child) {
+                List<double> buttonWidths = [];
+                List<double> buttonPositions = [0];
+
+                for (int i = 0; i < _navKeys.length; i++) {
+                  final RenderBox? renderBox =
+                      _navKeys[i].currentContext?.findRenderObject()
+                          as RenderBox?;
+                  if (renderBox != null) {
+                    buttonWidths.add(renderBox.size.width);
+                    if (i < _navKeys.length - 1) {
+                      buttonPositions.add(
+                        buttonPositions.last + renderBox.size.width,
+                      );
+                    }
+                  } else {
+                    double fallbackWidth = 90;
+                    buttonWidths.add(fallbackWidth);
+                    if (i < _navKeys.length - 1) {
+                      buttonPositions.add(buttonPositions.last + fallbackWidth);
+                    }
+                  }
+                }
+
+                int currentIndex = _navAnimation.value.round().clamp(
+                  0,
+                  buttonWidths.length - 1,
+                );
+                double targetIndex = _navAnimation.value;
+
+                double leftPosition = 0;
+                if (targetIndex.floor() < buttonPositions.length) {
+                  leftPosition = buttonPositions[targetIndex.floor()];
+                  if (targetIndex != targetIndex.floor() &&
+                      targetIndex.floor() < buttonWidths.length - 1) {
+                    double fraction = targetIndex - targetIndex.floor();
+                    leftPosition +=
+                        buttonWidths[targetIndex.floor()] * fraction;
+                  }
+                }
+
+                double currentWidth =
+                    buttonWidths.isNotEmpty &&
+                        currentIndex < buttonWidths.length
+                    ? buttonWidths[currentIndex]
+                    : 90;
+
+                double currentHeight = 40;
+                final RenderBox? renderBox =
+                    _navKeys[0].currentContext?.findRenderObject()
+                        as RenderBox?;
+                if (renderBox != null) {
+                  currentHeight = renderBox.size.height;
+                }
+
+                return Positioned(
+                  left: leftPosition,
+                  child: Container(
+                    width: currentWidth,
+                    height: currentHeight,
+                    decoration: const BoxDecoration(color: Color(0xFFFF0000)),
+                  ),
+                );
+              },
+            ),
+            // Buttons
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: navItems.asMap().entries.map((entry) {
+                  return InkWell(
+                    key: _navKeys[entry.key],
+                    onTap: () {
+                      _animateNav(entry.key);
+                      if (entry.key == 1) {
+                        Navigator.pushReplacementNamed(context, '/about');
+                      } else if (entry.key == 2) {
+                        Navigator.pushReplacementNamed(context, '/portfolio');
+                      } else if (entry.key == 3) {
+                        Navigator.pushReplacementNamed(context, '/contact');
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        entry.value,
+                        style: GoogleFonts.jersey10(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -594,6 +763,8 @@ class _HomePageState extends State<HomePage> {
 
   // Mobile Footer
   Widget _buildMobileFooter(BuildContext context) {
+    final navItems = ['HOME', 'ABOUT', 'PORTOFOLIO', 'CONTACT'];
+
     return Column(
       children: [
         SingleChildScrollView(
@@ -604,36 +775,132 @@ class _HomePageState extends State<HomePage> {
                 'JUST_K',
                 style: GoogleFonts.jersey10(
                   color: Colors.white.withOpacity(0.45),
-                  fontSize: 35,
+                  fontSize: 28,
                   letterSpacing: 2,
                 ),
               ),
               const SizedBox(width: 20),
-              NavItem(
-                text: 'HOME',
-                isMobile: true,
-                isActive: true,
-                onTap: () {},
-              ),
-              NavItem(
-                text: 'ABOUT',
-                isMobile: true,
-                isActive: false,
-                onTap: () => Navigator.pushReplacementNamed(context, '/about'),
-              ),
-              NavItem(
-                text: 'PORTOFOLIO',
-                isMobile: true,
-                isActive: false,
-                onTap: () =>
-                    Navigator.pushReplacementNamed(context, '/portfolio'),
-              ),
-              NavItem(
-                text: 'CONTACT',
-                isMobile: true,
-                isActive: false,
-                onTap: () =>
-                    Navigator.pushReplacementNamed(context, '/contact'),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return Stack(
+                    children: [
+                      // Animated red background
+                      AnimatedBuilder(
+                        animation: _footerAnimation,
+                        builder: (context, child) {
+                          List<double> buttonWidths = [];
+                          List<double> buttonPositions = [0];
+
+                          for (int i = 0; i < _footerKeys.length; i++) {
+                            final RenderBox? renderBox =
+                                _footerKeys[i].currentContext
+                                        ?.findRenderObject()
+                                    as RenderBox?;
+                            if (renderBox != null) {
+                              buttonWidths.add(renderBox.size.width);
+                              if (i < _footerKeys.length - 1) {
+                                buttonPositions.add(
+                                  buttonPositions.last + renderBox.size.width,
+                                );
+                              }
+                            } else {
+                              double fallbackWidth = 90;
+                              buttonWidths.add(fallbackWidth);
+                              if (i < _footerKeys.length - 1) {
+                                buttonPositions.add(
+                                  buttonPositions.last + fallbackWidth,
+                                );
+                              }
+                            }
+                          }
+
+                          int currentIndex = _footerAnimation.value
+                              .round()
+                              .clamp(0, buttonWidths.length - 1);
+                          double targetIndex = _footerAnimation.value;
+
+                          double leftPosition = 0;
+                          if (targetIndex.floor() < buttonPositions.length) {
+                            leftPosition = buttonPositions[targetIndex.floor()];
+                            if (targetIndex != targetIndex.floor() &&
+                                targetIndex.floor() < buttonWidths.length - 1) {
+                              double fraction =
+                                  targetIndex - targetIndex.floor();
+                              leftPosition +=
+                                  buttonWidths[targetIndex.floor()] * fraction;
+                            }
+                          }
+
+                          double currentWidth =
+                              buttonWidths.isNotEmpty &&
+                                  currentIndex < buttonWidths.length
+                              ? buttonWidths[currentIndex]
+                              : 90;
+
+                          double currentHeight = 40;
+                          final RenderBox? renderBox =
+                              _footerKeys[0].currentContext?.findRenderObject()
+                                  as RenderBox?;
+                          if (renderBox != null) {
+                            currentHeight = renderBox.size.height;
+                          }
+
+                          return Positioned(
+                            left: leftPosition,
+                            child: Container(
+                              width: currentWidth,
+                              height: currentHeight,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFFF0000),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      // Buttons
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: navItems.asMap().entries.map((entry) {
+                          return InkWell(
+                            key: _footerKeys[entry.key],
+                            onTap: () {
+                              _animateFooter(entry.key);
+                              if (entry.key == 1) {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/about',
+                                );
+                              } else if (entry.key == 2) {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/portfolio',
+                                );
+                              } else if (entry.key == 3) {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/contact',
+                                );
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                                vertical: 8,
+                              ),
+                              child: Text(
+                                entry.value,
+                                style: GoogleFonts.jersey10(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
