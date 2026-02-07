@@ -12,10 +12,15 @@ class PortfolioPage extends StatefulWidget {
 }
 
 class _PortfolioPageState extends State<PortfolioPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   String selectedTab = 'COSPLAY';
   int? selectedImageIndex;
   late AnimationController _scrollController;
+  late AnimationController _tabAnimationController;
+  late Animation<double> _tabAnimation;
+
+  final List<GlobalKey> _tabKeys = [GlobalKey(), GlobalKey(), GlobalKey()];
+  bool _isFirstBuild = true;
 
   @override
   void initState() {
@@ -24,12 +29,57 @@ class _PortfolioPageState extends State<PortfolioPage>
       vsync: this,
       duration: const Duration(seconds: 35),
     )..repeat();
+
+    _tabAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    _tabAnimation = Tween<double>(begin: 0, end: 0).animate(
+      CurvedAnimation(parent: _tabAnimationController, curve: Curves.easeInOut),
+    );
+
+    // Force rebuild after first frame to get accurate measurements
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _isFirstBuild) {
+        // Add small delay to ensure widgets are fully rendered
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isFirstBuild = false;
+            });
+          }
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _tabAnimationController.dispose();
     super.dispose();
+  }
+
+  void _animateToTab(String tab) {
+    double targetPosition = 0;
+    if (tab == 'COSPLAY') {
+      targetPosition = 0;
+    } else if (tab == 'DESIGN') {
+      targetPosition = 1;
+    } else if (tab == '3D ANIMATOR') {
+      targetPosition = 2;
+    }
+
+    _tabAnimation =
+        Tween<double>(begin: _tabAnimation.value, end: targetPosition).animate(
+          CurvedAnimation(
+            parent: _tabAnimationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+    _tabAnimationController.forward(from: 0);
   }
 
   @override
@@ -171,22 +221,20 @@ class _PortfolioPageState extends State<PortfolioPage>
     );
   }
 
-  Widget _buildTabButton(String tab, bool isMobile) {
-    final isSelected = selectedTab == tab;
+  Widget _buildTabButton(String tab, bool isMobile, int index) {
     return InkWell(
+      key: _tabKeys[index],
       onTap: () {
         setState(() {
           selectedTab = tab;
           selectedImageIndex = null;
+          _animateToTab(tab);
         });
       },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: isMobile ? 15 : 25,
           vertical: isMobile ? 8 : 12,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFFF0000) : Colors.transparent,
         ),
         child: Text(
           tab,
@@ -196,6 +244,106 @@ class _PortfolioPageState extends State<PortfolioPage>
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAnimatedTabs(bool isMobile) {
+    final tabs = ['COSPLAY', 'DESIGN', '3D ANIMATOR'];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            // Animated red background
+            AnimatedBuilder(
+              animation: _tabAnimation,
+              builder: (context, child) {
+                // Get button sizes and positions from GlobalKeys
+                List<double> buttonWidths = [];
+                List<double> buttonPositions = [0];
+
+                for (int i = 0; i < _tabKeys.length; i++) {
+                  final RenderBox? renderBox =
+                      _tabKeys[i].currentContext?.findRenderObject()
+                          as RenderBox?;
+                  if (renderBox != null) {
+                    buttonWidths.add(renderBox.size.width);
+                    if (i < _tabKeys.length - 1) {
+                      buttonPositions.add(
+                        buttonPositions.last + renderBox.size.width,
+                      );
+                    }
+                  } else {
+                    // Fallback if not yet rendered
+                    double fallbackWidth = isMobile ? 120 : 200;
+                    buttonWidths.add(fallbackWidth);
+                    if (i < _tabKeys.length - 1) {
+                      buttonPositions.add(buttonPositions.last + fallbackWidth);
+                    }
+                  }
+                }
+
+                int currentIndex = _tabAnimation.value.round().clamp(
+                  0,
+                  buttonWidths.length - 1,
+                );
+                double targetIndex = _tabAnimation.value;
+
+                // Calculate position
+                double leftPosition = 0;
+                if (targetIndex.floor() < buttonPositions.length) {
+                  leftPosition = buttonPositions[targetIndex.floor()];
+
+                  // Add partial width for in-between animation
+                  if (targetIndex != targetIndex.floor() &&
+                      targetIndex.floor() < buttonWidths.length - 1) {
+                    double fraction = targetIndex - targetIndex.floor();
+                    leftPosition +=
+                        buttonWidths[targetIndex.floor()] * fraction;
+                  }
+                }
+
+                // Get current button width
+                double currentWidth =
+                    buttonWidths.isNotEmpty &&
+                        currentIndex < buttonWidths.length
+                    ? buttonWidths[currentIndex]
+                    : (isMobile ? 120 : 200);
+
+                // Get height from first button
+                double currentHeight = isMobile ? 40 : 64;
+                final RenderBox? renderBox =
+                    _tabKeys[0].currentContext?.findRenderObject()
+                        as RenderBox?;
+                if (renderBox != null) {
+                  currentHeight = renderBox.size.height;
+                }
+
+                return Positioned(
+                  left: leftPosition,
+                  child: Container(
+                    width: currentWidth,
+                    height: currentHeight,
+                    decoration: const BoxDecoration(color: Color(0xFFFF0000)),
+                  ),
+                );
+              },
+            ),
+            // Buttons
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: tabs
+                  .asMap()
+                  .entries
+                  .map(
+                    (entry) =>
+                        _buildTabButton(entry.value, isMobile, entry.key),
+                  )
+                  .toList(),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -231,18 +379,9 @@ class _PortfolioPageState extends State<PortfolioPage>
 
     return Column(
       children: [
-        // Tab buttons
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: isMobile ? 10 : 30,
-          runSpacing: isMobile ? 10 : 0,
-          children: [
-            _buildTabButton('COSPLAY', isMobile),
-            _buildTabButton('DESIGN', isMobile),
-            _buildTabButton('3D ANIMATOR', isMobile),
-          ],
-        ),
-        SizedBox(height: isMobile ? 20 : 40),
+        // Tab buttons with animation
+        Center(child: _buildAnimatedTabs(isMobile)),
+        SizedBox(height: isMobile ? 10 : 20),
         // Container with fixed background and scrollable images
         Stack(
           children: [
@@ -307,7 +446,7 @@ class _PortfolioPageState extends State<PortfolioPage>
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
                   horizontal: isMobile ? 10 : 100,
-                  vertical: 20,
+                  vertical: isMobile ? 10 : 15,
                 ),
                 child: GridView.builder(
                   shrinkWrap: true,
@@ -448,18 +587,9 @@ class _PortfolioPageState extends State<PortfolioPage>
   Widget _build3DAnimatorWithTabs(bool isMobile) {
     return Column(
       children: [
-        // Tab buttons
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: isMobile ? 10 : 30,
-          runSpacing: isMobile ? 10 : 0,
-          children: [
-            _buildTabButton('COSPLAY', isMobile),
-            _buildTabButton('DESIGN', isMobile),
-            _buildTabButton('3D ANIMATOR', isMobile),
-          ],
-        ),
-        SizedBox(height: isMobile ? 20 : 40),
+        // Tab buttons with animation
+        Center(child: _buildAnimatedTabs(isMobile)),
+        SizedBox(height: isMobile ? 10 : 20),
         // 3D Animator content
         _build3DAnimatorContent(isMobile),
       ],
