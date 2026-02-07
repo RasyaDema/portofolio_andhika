@@ -309,14 +309,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 400),
             height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home2.png'),
-                fit: isMobile
-                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                    : BoxFit.cover,
+                fit: BoxFit.cover,
                 alignment: Alignment.center,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
@@ -393,14 +391,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 400),
             height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home3.png'),
-                fit: isMobile
-                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                    : BoxFit.cover,
+                fit: BoxFit.cover,
                 alignment: Alignment.center,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
@@ -477,14 +473,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ? null
               : (_) => setState(() => _hoveredSection = null),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 400),
             height: isHovered ? (isMobile ? 250 : 350) : (isMobile ? 150 : 200),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/images/Home4.png'),
-                fit: isMobile
-                    ? (isHovered ? BoxFit.cover : BoxFit.contain)
-                    : BoxFit.cover,
+                fit: BoxFit.cover,
                 alignment: Alignment.center,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(isOtherHovered ? 0.85 : 0.3),
