@@ -72,6 +72,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             setState(() {
               _isFirstBuild = false;
             });
+            // Force navbar and footer animation update after rebuild
+            _navAnimationController.forward(from: 0);
+            _footerAnimationController.forward(from: 0);
           }
         });
       }
