@@ -538,6 +538,13 @@ class _PortfolioPageState extends State<PortfolioPage>
         'assets/Desain/desain32.png',
         'assets/Desain/desain33.png',
         'assets/Desain/desain34.png',
+        'assets/Desain/desain35.png',
+        'assets/Desain/desain36.png',
+        'assets/Desain/desain37.png',
+        'assets/Desain/desain38.png',
+        'assets/Desain/desain39.png',
+        'assets/Desain/desain40.png',
+        'assets/Desain/desain41.png',
       ];
     }
   }
